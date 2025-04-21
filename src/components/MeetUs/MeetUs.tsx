@@ -166,11 +166,11 @@ const MeetUsSection = () => {
             <span className="text-sm font-semibold text-white/60 uppercase tracking-wider kanit-text">
               Our Space
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4 kanit-text">
+            <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4 kanit-text text-white/90">
               Meet Us
             </h2>
             <p className="text-lg text-white/80 max-w-2xl mx-auto">
-              Take a peek inside our world and see where the magic happens.
+              Take a look at where to find us and chat with us
             </p>
           </div>
 
