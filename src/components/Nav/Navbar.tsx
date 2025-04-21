@@ -59,8 +59,8 @@ const Navbar = () => {
       <motion.nav
         className={cn(
           "fixed z-50 hidden md:flex",
-          "backdrop-blur-md bg-black/80 rounded-full px-4 py-2.5 shadow-lg",
-          "bottom-8 right-8"
+          "backdrop-blur-md bg-black/80 rounded-full px-4 py-3 shadow-lg",
+          "bottom-8 right-8 border-[1px] border-white/60"
         )}
         initial="hidden"
         animate="visible"
@@ -103,13 +103,13 @@ const Navbar = () => {
           "fixed z-50 flex md:hidden justify-between items-center",
           "backdrop-blur-md bg-black/80 rounded-full px-4 py-2.5 shadow-lg",
           "top-4 left-1/2 -translate-x-1/2",
-          "min-w-[200px]"
+          "min-w-[200px] border-[1px] border-white/60"
         )}
         initial="hidden"
         animate="visible"
         variants={navVariants}
       >
-        <Link href="/" className="text-lg font-bold kanit-text">
+        <Link href="/" className="text-lg font-bold kanit-text text-white/90">
           Kollab
         </Link>
         <button

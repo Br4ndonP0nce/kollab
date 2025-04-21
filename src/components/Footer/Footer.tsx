@@ -57,7 +57,9 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             {/* Brand column */}
             <div>
-              <h3 className="text-2xl font-bold mb-6 kanit-text">Kollab</h3>
+              <h3 className="text-2xl font-bold mb-6 kanit-text text-white/90">
+                Kollab
+              </h3>
               <p className="text-white/70 mb-6">
                 Connecting projects with influential KOLs to drive authentic
                 growth and real market impact.
@@ -80,7 +82,7 @@ const Footer = () => {
 
             {/* Quick links column */}
             <div>
-              <h4 className="text-lg font-semibold mb-6 kanit-text">
+              <h4 className="text-lg font-semibold mb-6 kanit-text text-white/90">
                 Quick Links
               </h4>
               <ul className="space-y-4">
@@ -99,7 +101,7 @@ const Footer = () => {
 
             {/* Services column */}
             <div>
-              <h4 className="text-lg font-semibold mb-6 kanit-text">
+              <h4 className="text-lg font-semibold mb-6 kanit-text  text-white/90">
                 Services
               </h4>
               <ul className="space-y-4">
@@ -118,11 +120,11 @@ const Footer = () => {
 
             {/* Contact column */}
             <div>
-              <h4 className="text-lg font-semibold mb-6 kanit-text">
+              <h4 className="text-lg font-semibold mb-6 kanit-text  text-white/90">
                 Contact Us
               </h4>
-              <address className="not-italic text-white/70 space-y-4">
-                <p>London, United Kingdom</p>
+              <address className="not-italic text-white/70 space-y-4 ">
+                <p>Dubai, UAE</p>
                 <p>
                   <a
                     href="mailto:contact@kollabagency.com"

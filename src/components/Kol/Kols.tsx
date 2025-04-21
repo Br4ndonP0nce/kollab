@@ -1,38 +1,125 @@
-// src/components/home/KolsSection.tsx
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import { kols } from "@/lib/constants";
 import Image from "next/image";
 import { Linkedin } from "lucide-react";
 
-const KolsSection = () => {
+const ImprovedKolsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
+  // Constants for the carousel
+  const ITEM_WIDTH = 280; // Width of each KOL card
+  const ITEM_GAP = 16; // Gap between items (equivalent to mx-4)
+  const ITEM_TOTAL_WIDTH = ITEM_WIDTH + ITEM_GAP; // Total width including gap
 
-  // Parallax effect
-  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  // Triple the KOLs array for infinite scrolling effect
+  const tripleKols = [...kols, ...kols, ...kols];
+
+  useEffect(() => {
+    if (!scrollerRef.current) return;
+
+    const totalOriginalWidth = kols.length * ITEM_TOTAL_WIDTH;
+    const scrollerElement = scrollerRef.current;
+
+    // Callback to check scroll position and "loop" back if needed
+    const handleScroll = () => {
+      if (!scrollerElement) return;
+
+      const scrollPos = scrollerElement.scrollLeft;
+
+      // If we've scrolled to the end of the first set, jump to the second set (invisible jump)
+      if (scrollPos < 10) {
+        // Disable smooth scrolling temporarily
+        scrollerElement.style.scrollBehavior = "auto";
+        scrollerElement.scrollLeft = totalOriginalWidth + scrollPos;
+        // Re-enable smooth scrolling
+        setTimeout(() => {
+          scrollerElement.style.scrollBehavior = "smooth";
+        }, 10);
+      }
+      // If we've scrolled to the beginning of the third set, jump to the second set
+      else if (scrollPos >= totalOriginalWidth * 2 - 10) {
+        scrollerElement.style.scrollBehavior = "auto";
+        scrollerElement.scrollLeft = scrollPos - totalOriginalWidth;
+        setTimeout(() => {
+          scrollerElement.style.scrollBehavior = "smooth";
+        }, 10);
+      }
+    };
+
+    // Initialize position to the middle set for better UX
+    scrollerElement.scrollLeft = totalOriginalWidth;
+    scrollerElement.style.scrollBehavior = "smooth";
+
+    // Add event listeners
+    scrollerElement.addEventListener("scroll", handleScroll);
+
+    // Enable mouse drag scrolling
+    let isDown = false;
+    let startX: number;
+    let scrollLeft: number;
+
+    const handleMouseDown = (e: MouseEvent) => {
+      isDown = true;
+      scrollerElement.style.cursor = "grabbing";
+      startX = e.pageX - scrollerElement.offsetLeft;
+      scrollLeft = scrollerElement.scrollLeft;
+      scrollerElement.style.scrollBehavior = "auto";
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      scrollerElement.style.cursor = "grab";
+      scrollerElement.style.scrollBehavior = "smooth";
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      scrollerElement.style.cursor = "grab";
+      scrollerElement.style.scrollBehavior = "smooth";
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - scrollerElement.offsetLeft;
+      const walk = (x - startX) * 2; // Scroll speed multiplier
+      scrollerElement.scrollLeft = scrollLeft - walk;
+    };
+
+    scrollerElement.addEventListener("mousedown", handleMouseDown);
+    scrollerElement.addEventListener("mouseleave", handleMouseLeave);
+    scrollerElement.addEventListener("mouseup", handleMouseUp);
+    scrollerElement.addEventListener("mousemove", handleMouseMove);
+
+    // Clean up
+    return () => {
+      scrollerElement.removeEventListener("scroll", handleScroll);
+      scrollerElement.removeEventListener("mousedown", handleMouseDown);
+      scrollerElement.removeEventListener("mouseleave", handleMouseLeave);
+      scrollerElement.removeEventListener("mouseup", handleMouseUp);
+      scrollerElement.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   return (
     <section
-      id="kols"
+      id="core-team"
       ref={containerRef}
       className="py-24 bg-black relative overflow-hidden"
     >
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black/95" />
 
-      {/* Animated background */}
+      {/* Background pattern with parallax effect */}
       <motion.div
-        className="absolute inset-0 grid-background bg-repeat opacity-5"
-        style={{ y, opacity }}
+        className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.05 }}
+        transition={{ duration: 1 }}
       />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -42,7 +129,7 @@ const KolsSection = () => {
             <span className="text-sm font-semibold text-white/60 uppercase tracking-wider">
               Our Network
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4  text-white/90">
+            <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 text-white/90 kanit-text">
               Key Opinion Leaders
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
@@ -51,7 +138,7 @@ const KolsSection = () => {
             </p>
           </div>
 
-          {/* "SWIPE" indicator similar to the one in the reference image */}
+          {/* "SWIPE" indicator */}
           <div className="relative flex justify-end mb-6 mr-4 md:mr-8">
             <motion.div
               initial={{ x: -10, opacity: 0 }}
@@ -66,113 +153,69 @@ const KolsSection = () => {
             </motion.div>
           </div>
 
-          {/* Horizontal scrollable section */}
-          <div className="relative -mx-4 px-4 overflow-hidden">
+          {/* Improved horizontal scrollable section */}
+          <div
+            className="relative overflow-hidden mx-auto"
+            style={{ maxWidth: "calc(100vw - 40px)" }}
+          >
             <div
-              ref={carouselRef}
-              className="flex overflow-x-auto pb-8 pt-2 snap-x snap-mandatory scrollbar-none"
-              style={{ scrollbarWidth: "none" }}
+              ref={scrollerRef}
+              className="relative pb-6 flex cursor-grab overflow-x-auto scrollbar-none touch-pan-x"
+              style={{
+                WebkitOverflowScrolling: "touch",
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+                width: "100%",
+              }}
             >
-              {/* Placeholder for left padding to center first item */}
-              <div className="flex-shrink-0 w-4 md:w-1/4 lg:w-1/3"></div>
+              {/* Triple the items for true infinite scrolling */}
+              <div className="flex gap-4">
+                {tripleKols.map((kol, index) => (
+                  <motion.div
+                    key={`${kol.id}-${index}`}
+                    className="flex-shrink-0 w-[280px] mx-2 overflow-hidden"
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="relative group">
+                      {/* Team Member Image */}
+                      <div className="relative h-[420px] w-[280px] overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
+                        <Image
+                          src={kol.image}
+                          alt={kol.name}
+                          fill
+                          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                        />
 
-              {/* KOL cards */}
-              {kols.map((kol, index) => (
-                <motion.div
-                  key={kol.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ delay: 0.1 * index }}
-                  className="flex-shrink-0 w-[280px] mx-4 snap-center"
-                >
-                  <div className="relative group">
-                    {/* KOL Image */}
-                    <div className="relative h-[420px] w-[280px] overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
-                      <Image
-                        src={kol.image}
-                        alt={kol.name}
-                        fill
-                        className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                      />
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
 
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
+                        {/* LinkedIn icon in top-left corner */}
+                        <div className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center text-white">
+                          <Linkedin size={20} />
+                        </div>
 
-                      {/* LinkedIn icon in top-left corner - similar to reference image */}
-                      <div className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center text-white">
-                        <Linkedin size={20} />
-                      </div>
-
-                      {/* KOL info */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                        <h3 className="text-2xl font-bold mb-1">
-                          {kol.name.toUpperCase()}
-                        </h3>
-                        <div className="flex flex-col space-y-1 text-sm text-white/80">
-                          <span className="uppercase">
-                            {kol.followers} FOLLOWERS
-                          </span>
-                          <span className="uppercase">{kol.platform}</span>
-                          <span className="uppercase">
-                            {kol.specialty} SPECIALIST
-                          </span>
+                        {/* Team member info */}
+                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                          <h3 className="text-2xl font-bold mb-1">
+                            {kol.name.toUpperCase()}
+                          </h3>
+                          <div className="flex flex-col space-y-1 text-sm text-white/80">
+                            <span className="uppercase">
+                              {kol.specialty} SPECIALIST
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
-
-              {/* Placeholder for right padding to allow last item to center */}
-              <div className="flex-shrink-0 w-4 md:w-1/4 lg:w-1/3"></div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
             {/* Gradient overlays for scroll indication */}
-            <div className="absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-black to-transparent pointer-events-none" />
-            <div className="absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-black to-transparent pointer-events-none" />
-          </div>
-
-          {/* Stats */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10"
-            >
-              <h3 className="text-3xl md:text-4xl font-bold mb-2  text-white/90">
-                250+
-              </h3>
-              <p className="text-white/70">KOLs in Network</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10"
-            >
-              <h3 className="text-3xl md:text-4xl font-bold mb-2  text-white/90">
-                72M+
-              </h3>
-              <p className="text-white/70">Cumulative Reach</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10"
-            >
-              <h3 className="text-3xl md:text-4xl font-bold mb-2  text-white/90">
-                2.6M+
-              </h3>
-              <p className="text-white/70">Avg. Views per Post</p>
-            </motion.div>
+            <div className="absolute top-0 left-0 h-full w-12 bg-gradient-to-r from-black to-transparent pointer-events-none" />
+            <div className="absolute top-0 right-0 h-full w-12 bg-gradient-to-l from-black to-transparent pointer-events-none" />
           </div>
         </div>
       </div>
@@ -180,4 +223,4 @@ const KolsSection = () => {
   );
 };
 
-export default KolsSection;
+export default ImprovedKolsSection;

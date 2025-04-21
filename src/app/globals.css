@@ -303,3 +303,15 @@
 .kanit-text {
   font-family: var(--font-kanit), sans-serif;
 }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-overflow-scrolling: touch;
+}

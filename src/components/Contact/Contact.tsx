@@ -134,7 +134,7 @@ const ContactSection = () => {
                       <h4 className="font-medium mb-1 kanit-text  text-white/90">
                         Headquarters
                       </h4>
-                      <p className="text-white/70">London, United Kingdom</p>
+                      <p className="text-white/70">Dubai, UAE</p>
                     </div>
                   </div>
 
