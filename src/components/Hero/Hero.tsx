@@ -64,8 +64,8 @@ const HeroSection = () => {
           animate="visible"
         >
           <motion.div variants={itemVariants} className="mb-6 inline-block">
-            <span className="px-4 py-1.5 glass-effect rounded-full text-sm font-medium text-white/90 kanit-text">
-              The Future of Influencer Marketing
+            <span className="px-4 py-1.5 font-bold text-5xl  text-white/90 kanit-text">
+              KOLLABS
             </span>
           </motion.div>
 
