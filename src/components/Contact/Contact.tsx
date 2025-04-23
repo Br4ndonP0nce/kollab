@@ -16,24 +16,14 @@ import { cn } from "@/lib/utils";
 // Social media links
 const socialLinks = [
   {
-    platform: "Twitter",
-    url: "https://twitter.com/kollabagency",
-    icon: <Twitter className="h-5 w-5" />,
-  },
-  {
-    platform: "LinkedIn",
-    url: "https://linkedin.com/company/kollabagency",
-    icon: <Linkedin className="h-5 w-5" />,
-  },
-  {
     platform: "Telegram",
-    url: "https://t.me/kollabagency",
+    url: "https://t.me/Kollabsagency",
     icon: <Send className="h-5 w-5" />,
   },
   {
-    platform: "Discord",
-    url: "https://discord.gg/kollabagency",
-    icon: <MessageSquare className="h-5 w-5" />,
+    platform: "Mail",
+    url: "mailto:contact@kollabs.tech",
+    icon: <Mail className="h-5 w-5" />,
   },
 ];
 
@@ -122,7 +112,7 @@ const ContactSection = () => {
                       <h4 className="font-medium mb-1 kanit-text  text-white/90">
                         Email
                       </h4>
-                      <p className="text-white/70">contact@kollabagency.com</p>
+                      <p className="text-white/70">contact@kollabs.tech</p>
                     </div>
                   </div>
 
@@ -135,18 +125,6 @@ const ContactSection = () => {
                         Headquarters
                       </h4>
                       <p className="text-white/70">Dubai, UAE</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <div className="p-2 bg-white/10 rounded-full mr-4">
-                      <MessageSquare className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium mb-1 kanit-text  text-white/90">
-                        Response Time
-                      </h4>
-                      <p className="text-white/70">Within 24 hours</p>
                     </div>
                   </div>
                 </div>

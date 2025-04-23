@@ -188,10 +188,10 @@ export const teamMembers = [
 
 // Social media links
 export const socialLinks = [
-  { platform: 'Twitter', url: 'https://twitter.com/kollabagency', icon: 'Twitter' },
-  { platform: 'LinkedIn', url: 'https://linkedin.com/company/kollabagency', icon: 'Linkedin' },
-  { platform: 'Telegram', url: 'https://t.me/kollabagency', icon: 'Send' },
-  { platform: 'Discord', url: 'https://discord.gg/kollabagency', icon: 'MessageSquare' },
+  { platform: 'Twitter', url: 'https://twitter.com/Kollabsagency', icon: 'Twitter' },
+  { platform: 'LinkedIn', url: 'https://linkedin.com/company/Kollabsagency', icon: 'Linkedin' },
+  { platform: 'Telegram', url: 'https://t.me/Kollabsagency', icon: 'Send' },
+  { platform: 'Discord', url: 'https://discord.gg/Kollabsagency', icon: 'MessageSquare' },
 ];
 
 // Navigation links

@@ -43,7 +43,7 @@ const caseStudies = [
       { label: "Tier 1 KOLs", value: 6, icon: <Users className="h-5 w-5" /> },
       {
         label: "Price Increase",
-        value: "126% in 10 days",
+        value: "126m market cap added in 2 weeks",
         icon: <ArrowUp className="h-5 w-5" />,
       },
       {

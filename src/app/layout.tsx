@@ -20,7 +20,7 @@ const kanit = Kanit({
   weight: ["100", "300", "400", "500", "700"],
 });
 export const metadata: Metadata = {
-  title: "Kollab Agency - Premium KOL Marketing Solutions",
+  title: "Kollabs Agency - Premium KOL Marketing Solutions",
   description:
     "Connecting projects with top-tier KOLs and influencers through organic approaches for maximum growth and market impact.",
   keywords:

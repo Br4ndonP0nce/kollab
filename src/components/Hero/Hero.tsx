@@ -85,17 +85,9 @@ const HeroSection = () => {
             variants={itemVariants}
             className="text-xl md:text-2xl text-white/80 mb-10 max-w-3xl mx-auto text-balance"
           >
-            We pair your project with top KOLs and influencers to drive
-            <span className="text-white font-semibold">
-              {" "}
-              authentic growth
-            </span>{" "}
-            and
-            <span className="text-white font-semibold">
-              {" "}
-              real market impact
-            </span>
-            .
+            Where crypto meets influence <br />
+            <span className="text-white font-semibold"> real voices</span>
+            <span className="text-white font-semibold"> real results.</span>
           </motion.p>
 
           <motion.div
@@ -130,7 +122,7 @@ const HeroSection = () => {
           {/* Stats */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-4xl mx-auto"
+            className="flex flex-row  justify-center gap-8 mt-20 max-w-4xl mx-auto"
           >
             <div className="p-6 rounded-2xl glass-effect">
               <h3 className="text-4xl md:text-5xl font-bold text-white mb-2 kanit-text">
@@ -143,12 +135,6 @@ const HeroSection = () => {
                 40M+
               </h3>
               <p className="text-white/70">Average Monthly Views</p>
-            </div>
-            <div className="p-6 rounded-2xl glass-effect">
-              <h3 className="text-4xl md:text-5xl font-bold text-white mb-2 kanit-text">
-                180%
-              </h3>
-              <p className="text-white/70">Average Growth Rate</p>
             </div>
           </motion.div>
         </motion.div>

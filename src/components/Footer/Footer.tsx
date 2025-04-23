@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Twitter, Linkedin, Send, MessageSquare } from "lucide-react";
+import { Twitter, Linkedin, Send, MessageSquare, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Navigation links
@@ -17,24 +17,14 @@ const navLinks = [
 // Social media links
 const socialLinks = [
   {
-    platform: "Twitter",
-    url: "https://twitter.com/kollabagency",
-    icon: <Twitter className="h-5 w-5" />,
-  },
-  {
-    platform: "LinkedIn",
-    url: "https://linkedin.com/company/kollabagency",
-    icon: <Linkedin className="h-5 w-5" />,
-  },
-  {
     platform: "Telegram",
-    url: "https://t.me/kollabagency",
+    url: "https://t.me/Kollabsagency",
     icon: <Send className="h-5 w-5" />,
   },
   {
-    platform: "Discord",
-    url: "https://discord.gg/kollabagency",
-    icon: <MessageSquare className="h-5 w-5" />,
+    platform: "Mail",
+    url: "mailto:contact@kollabs.tech",
+    icon: <Mail className="h-5 w-5" />,
   },
 ];
 
@@ -58,7 +48,7 @@ const Footer = () => {
             {/* Brand column */}
             <div>
               <h3 className="text-2xl font-bold mb-6 kanit-text text-white/90">
-                Kollab
+                Kollabs
               </h3>
               <p className="text-white/70 mb-6">
                 Connecting projects with influential KOLs to drive authentic
@@ -127,10 +117,10 @@ const Footer = () => {
                 <p>Dubai, UAE</p>
                 <p>
                   <a
-                    href="mailto:contact@kollabagency.com"
+                    href="mailto:contact@kollabs.tech"
                     className="hover:text-white transition-colors duration-300"
                   >
-                    contact@kollabagency.com
+                    contact@kollabs.tech
                   </a>
                 </p>
               </address>
@@ -140,7 +130,7 @@ const Footer = () => {
           {/* Bottom bar with copyright */}
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-white/50 text-sm mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} Kollab Agency. All rights
+              &copy; {new Date().getFullYear()} Kollabs Agency. All rights
               reserved.
             </p>
             <div className="flex space-x-6 text-sm text-white/50">

@@ -7,31 +7,61 @@ import { cn } from "@/lib/utils";
 
 // Sample client logos - replace with actual data
 const clientLogos = [
-  { name: "Client 1", logo: "/api/placeholder/120/60" },
-  { name: "Client 2", logo: "/api/placeholder/120/60" },
-  { name: "Client 3", logo: "/api/placeholder/120/60" },
-  { name: "Client 4", logo: "/api/placeholder/120/60" },
-  { name: "Client 5", logo: "/api/placeholder/120/60" },
-  { name: "Client 6", logo: "/api/placeholder/120/60" },
-  { name: "Client 7", logo: "/api/placeholder/120/60" },
-  { name: "Client 8", logo: "/api/placeholder/120/60" },
-  { name: "Client 9", logo: "/api/placeholder/120/60" },
-  { name: "Client 10", logo: "/api/placeholder/120/60" },
+  { name: "bullx", logo: "/Image/bullx.png" },
+  { name: "lemoncash", logo: "/Image/lemon.svg" },
+  { name: "altura", logo: "/Image/altura.png" },
+  { name: "qfnetwork", logo: "/Image/qfnetwork.svg" },
+  { name: "tars", logo: "/Image/tars.svg" },
+  { name: "cess", logo: "/Image/cess.png" },
+  { name: "ondo", logo: "/Image/ondo.svg" },
+  { name: "botify", logo: "/Image/botify.jpg" },
+  { name: "bullx", logo: "/Image/bullx.png" },
+  { name: "lemoncash", logo: "/Image/lemon.svg" },
+  { name: "altura", logo: "/Image/altura.png" },
 ];
 
 // Duplicate for second row
 const clientLogos2 = [
-  { name: "Client 11", logo: "/api/placeholder/120/60" },
-  { name: "Client 12", logo: "/api/placeholder/120/60" },
-  { name: "Client 13", logo: "/api/placeholder/120/60" },
-  { name: "Client 14", logo: "/api/placeholder/120/60" },
-  { name: "Client 15", logo: "/api/placeholder/120/60" },
-  { name: "Client 16", logo: "/api/placeholder/120/60" },
-  { name: "Client 17", logo: "/api/placeholder/120/60" },
-  { name: "Client 18", logo: "/api/placeholder/120/60" },
-  { name: "Client 19", logo: "/api/placeholder/120/60" },
-  { name: "Client 20", logo: "/api/placeholder/120/60" },
+  { name: "bullx", logo: "/Image/bullx.png" },
+  { name: "lemoncash", logo: "/Image/lemon.svg" },
+  { name: "altura", logo: "/Image/altura.png" },
+  { name: "qfnetwork", logo: "/Image/qfnetwork.svg" },
+  { name: "tars", logo: "/Image/tars.svg" },
+  { name: "cess", logo: "/Image/cess.png" },
+  { name: "ondo", logo: "/Image/ondo.svg" },
+  { name: "botify", logo: "/Image/botify.jpg" },
+  { name: "bullx", logo: "/Image/bullx.png" },
+  { name: "lemoncash", logo: "/Image/lemon.svg" },
+  { name: "altura", logo: "/Image/altura.png" },
 ];
+
+// Component to handle both Image and SVG rendering
+const ClientLogo = ({ client }: { client: { name: string; logo: string } }) => {
+  // Check if the logo is an SVG
+  const isSvg = client.logo.endsWith(".svg");
+
+  if (isSvg) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <img
+          src={client.logo}
+          alt={client.name}
+          className="w-auto h-auto max-w-full max-h-full object-contain"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={client.logo}
+      alt={client.name}
+      width={160}
+      height={80}
+      className="object-contain"
+    />
+  );
+};
 
 const ClientsSlider = () => {
   const controls1 = useAnimationControls();
@@ -79,104 +109,39 @@ const ClientsSlider = () => {
       </div>
 
       {/* First row - left to right */}
-      <div className="relative overflow-hidden mb-8">
+      <div className="relative overflow-hidden mb-12">
         <motion.div ref={slider1Ref} className="flex" animate={controls1}>
           {/* First set of logos */}
-          <div className="flex items-center space-x-12 px-6">
+          <div className="flex items-center space-x-16 px-8">
             {clientLogos.map((client, index) => (
               <div
                 key={`row1-1-${index}`}
                 className={cn(
                   "grayscale opacity-70 hover:grayscale-0 hover:opacity-100",
                   "transition-all duration-300",
-                  "flex items-center justify-center h-20 w-40"
+                  "flex items-center justify-center h-28 w-52"
                 )}
               >
-                <div className="glass-effect p-4 rounded-lg w-full h-full flex items-center justify-center">
-                  <Image
-                    src={client.logo}
-                    alt={client.name}
-                    width={120}
-                    height={60}
-                    className="object-contain"
-                  />
+                <div className="glass-effect p-6 rounded-lg w-full h-full flex items-center justify-center">
+                  <ClientLogo client={client} />
                 </div>
               </div>
             ))}
           </div>
 
           {/* Duplicate set for seamless loop */}
-          <div className="flex items-center space-x-12 px-6">
+          <div className="flex items-center space-x-16 px-8">
             {clientLogos.map((client, index) => (
               <div
                 key={`row1-2-${index}`}
                 className={cn(
                   "grayscale opacity-70 hover:grayscale-0 hover:opacity-100",
                   "transition-all duration-300",
-                  "flex items-center justify-center h-20 w-40"
+                  "flex items-center justify-center h-28 w-52"
                 )}
               >
-                <div className="glass-effect p-4 rounded-lg w-full h-full flex items-center justify-center">
-                  <Image
-                    src={client.logo}
-                    alt={client.name}
-                    width={120}
-                    height={60}
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Second row - right to left */}
-      <div className="relative overflow-hidden">
-        <motion.div ref={slider2Ref} className="flex" animate={controls2}>
-          {/* First set of logos */}
-          <div className="flex items-center space-x-12 px-6">
-            {clientLogos2.map((client, index) => (
-              <div
-                key={`row2-1-${index}`}
-                className={cn(
-                  "grayscale opacity-70 hover:grayscale-0 hover:opacity-100",
-                  "transition-all duration-300",
-                  "flex items-center justify-center h-20 w-40"
-                )}
-              >
-                <div className="glass-effect p-4 rounded-lg w-full h-full flex items-center justify-center">
-                  <Image
-                    src={client.logo}
-                    alt={client.name}
-                    width={120}
-                    height={60}
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Duplicate set for seamless loop */}
-          <div className="flex items-center space-x-12 px-6">
-            {clientLogos2.map((client, index) => (
-              <div
-                key={`row2-2-${index}`}
-                className={cn(
-                  "grayscale opacity-70 hover:grayscale-0 hover:opacity-100",
-                  "transition-all duration-300",
-                  "flex items-center justify-center h-20 w-40"
-                )}
-              >
-                <div className="glass-effect p-4 rounded-lg w-full h-full flex items-center justify-center">
-                  <Image
-                    src={client.logo}
-                    alt={client.name}
-                    width={120}
-                    height={60}
-                    className="object-contain"
-                  />
+                <div className="glass-effect p-6 rounded-lg w-full h-full flex items-center justify-center">
+                  <ClientLogo client={client} />
                 </div>
               </div>
             ))}

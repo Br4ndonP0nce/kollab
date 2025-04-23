@@ -110,7 +110,7 @@ const Navbar = () => {
         variants={navVariants}
       >
         <Link href="/" className="text-lg font-bold kanit-text text-white/90">
-          Kollab
+          Kollabs
         </Link>
         <button
           onClick={toggleMenu}

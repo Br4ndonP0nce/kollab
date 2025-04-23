@@ -219,7 +219,7 @@ const EnhancedHeroSection = () => {
                 }}
               >
                 <span className="block text-5xl md:text-7xl lg:text-8xl font-bold leading-tight text-kanit text-white/70">
-                  KOLLAB
+                  Kollabs
                 </span>
                 <span className="block text-5xl md:text-7xl lg:text-8xl font-bold leading-tight text-kanit  text-white/70">
                   MARKETING

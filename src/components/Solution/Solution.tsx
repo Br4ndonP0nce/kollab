@@ -83,7 +83,7 @@ const SolutionSection = () => {
               Our Approach
             </span>
             <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 kanit-text  text-white/90">
-              The Kollab Solution
+              Kollabs
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
               We combine strategic expertise, data analytics, and an exclusive
@@ -146,12 +146,12 @@ const SolutionSection = () => {
                   "inline-block kanit-text"
                 )}
               >
-                Elevate Your Project with Kollab
+                Elevate Your Project with Kollabs
               </a>
             </div>
             <p className="text-white/60 mt-6 max-w-lg mx-auto">
               Our unique methodologies have consistently delivered exceptional
-              results across various market conditions. Experience the Kollab
+              results across various market conditions. Experience the Kollabs
               difference.
             </p>
           </motion.div>
