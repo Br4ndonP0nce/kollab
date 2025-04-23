@@ -4,7 +4,13 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { Metadata } from "next";
+import { generateMetadata } from "@/lib/seo";
 
+export const metadata: Metadata = generateMetadata(
+  "Our Story",
+  "Learn about Kollabs journey from humble beginnings to becoming a leading KOL marketing agency in the blockchain space."
+);
 const OurStorySection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });

@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import Navbar from "@/components/Nav/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { defaultMetadata } from "@/lib/seo";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -20,12 +21,7 @@ const kanit = Kanit({
   variable: "--font-kanit",
   weight: ["100", "300", "400", "500", "700"],
 });
-export const metadata: Metadata = {
-  title: "Kollabs Premium KOL Marketing Solutions",
-  description:
-    "Connecting projects with top-tier KOLs and influencers through organic approaches for maximum growth and market impact.",
-  keywords: "marketing, influencer, crypto, blockchain,web3",
-};
+export const metadata = defaultMetadata;
 
 export default function RootLayout({
   children,
