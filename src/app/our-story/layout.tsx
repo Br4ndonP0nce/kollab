@@ -14,8 +14,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/Image/og-image-story.png", // Make sure to create this image
-        width: 1200,
-        height: 630,
+        width: 1000,
+        height: 525,
         alt: "Kollabs - Our Story",
       },
     ],
