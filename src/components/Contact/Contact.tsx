@@ -12,7 +12,7 @@ import {
   Globe,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
+import { useLanguage } from "@/context/LanguageContext";
 // Social media links
 const socialLinks = [
   {
@@ -28,6 +28,7 @@ const socialLinks = [
 ];
 
 const ContactSection = () => {
+  const { t } = useLanguage();
   // Form submission handler (mock for demo)
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -82,14 +83,13 @@ const ContactSection = () => {
           {/* Section header */}
           <motion.div variants={itemVariants} className="text-center mb-16">
             <span className="text-sm font-semibold text-white/60 uppercase tracking-wider kanit-text">
-              Get In Touch
+              {t("contactMiniTitle")}
             </span>
             <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 kanit-text  text-white/90">
-              Ready to Elevate Your Project?
+              {t("contactTitle")}
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Contact us today to discuss how our network of KOLs and
-              influencers can drive exceptional growth for your project.
+              {t("contactDescription")}
             </p>
           </motion.div>
 
@@ -99,7 +99,7 @@ const ContactSection = () => {
             <motion.div variants={itemVariants}>
               <div className="glass-effect rounded-3xl p-8">
                 <h3 className="text-2xl font-bold mb-6 kanit-text  text-white/90">
-                  Connect With Us
+                  {t("modalTitle")}
                 </h3>
 
                 {/* Contact details */}
@@ -132,7 +132,7 @@ const ContactSection = () => {
                 {/* Social links */}
                 <div>
                   <h4 className="font-medium mb-4 kanit-text  text-white/90">
-                    Follow Us
+                    {t("Follow")}
                   </h4>
                   <div className="flex space-x-3">
                     {socialLinks.map((social) => (
@@ -156,7 +156,7 @@ const ContactSection = () => {
             <motion.div variants={itemVariants}>
               <div className="glass-effect rounded-3xl p-8">
                 <h3 className="text-2xl font-bold mb-6 kanit-text  text-white/90">
-                  Send Us a Message
+                  {t("formTitle")}
                 </h3>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -165,7 +165,7 @@ const ContactSection = () => {
                       htmlFor="name"
                       className="text-sm font-medium text-white/80 kanit-text"
                     >
-                      Your Name
+                      {t("formName")}
                     </label>
                     <input
                       id="name"
@@ -188,7 +188,7 @@ const ContactSection = () => {
                       htmlFor="email"
                       className="text-sm font-medium text-white/80 kanit-text"
                     >
-                      Email Address
+                      {t("formEmail")}
                     </label>
                     <input
                       id="email"
@@ -211,7 +211,7 @@ const ContactSection = () => {
                       htmlFor="projectName"
                       className="text-sm font-medium text-white/80 kanit-text"
                     >
-                      Project Name
+                      {t("formProject")}
                     </label>
                     <input
                       id="projectName"
@@ -234,12 +234,12 @@ const ContactSection = () => {
                       htmlFor="message"
                       className="text-sm font-medium text-white/80 kanit-text"
                     >
-                      Message
+                      {t("formMessageTitle")}
                     </label>
                     <textarea
                       id="message"
                       name="message"
-                      placeholder="Tell us about your project and goals"
+                      placeholder={t("formMessage")}
                       required
                       rows={5}
                       className={cn(
@@ -262,7 +262,7 @@ const ContactSection = () => {
                       "transition-colors duration-300 hover-lift"
                     )}
                   >
-                    Send Message <ArrowRight className="ml-2 h-4 w-4" />
+                    {t("formButton")} <ArrowRight className="ml-2 h-4 w-4" />
                   </button>
                 </form>
               </div>

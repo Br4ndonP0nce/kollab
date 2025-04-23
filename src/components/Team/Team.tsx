@@ -5,8 +5,9 @@ import { motion } from "framer-motion";
 import { kols } from "@/lib/constants";
 import Image from "next/image";
 import { Linkedin } from "lucide-react";
-
+import { useLanguage } from "@/context/LanguageContext";
 const TeamSection = () => {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
@@ -133,7 +134,7 @@ const TeamSection = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="text-sm font-semibold text-white/60 uppercase tracking-wider kanit-text">
-              Meet The Team
+              {t("teamTitle")}
             </span>
             <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 kanit-text">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/80">
@@ -141,8 +142,7 @@ const TeamSection = () => {
               </span>
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Our experienced team of industry experts brings years of knowledge
-              in Web3 marketing, community building, and growth strategies.
+              {t("teamDescription")}
             </p>
           </motion.div>
 

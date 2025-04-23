@@ -11,8 +11,10 @@ import {
   Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/context/LanguageContext";
 
 const SolutionSection = () => {
+  const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -22,42 +24,37 @@ const SolutionSection = () => {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
-  const features = [
+  // Define the features with translation keys instead of direct text
+  const featureData = [
     {
       icon: <Network className="h-8 w-8" />,
-      title: "Extensive Network",
-      description:
-        "Access to 250+ vetted KOLs and influencers across major platforms with genuine engaged audiences.",
+      titleKey: "extensiveNetwork",
+      descriptionKey: "blockOneDescription",
     },
     {
       icon: <Database className="h-8 w-8" />,
-      title: "Data-Driven Approach",
-      description:
-        "Performance analytics and metrics to optimize campaigns and maximize ROI through strategic insights.",
+      titleKey: "blockTwoTitle",
+      descriptionKey: "blockTwoDescription",
     },
     {
       icon: <TrendingUp className="h-8 w-8" />,
-      title: "Growth Strategy",
-      description:
-        "Tailored marketing solutions designed to boost visibility, engagement, and market capitalization.",
+      titleKey: "blockThreeTitle",
+      descriptionKey: "blockThreeDescription",
     },
     {
       icon: <Layers className="h-8 w-8" />,
-      title: "Industry Expertise",
-      description:
-        "Specialized knowledge in blockchain, crypto, and Web3 to effectively position your project.",
+      titleKey: "blockFourTitle",
+      descriptionKey: "blockFourDescription",
     },
     {
       icon: <BarChart className="h-8 w-8" />,
-      title: "Performance Tracking",
-      description:
-        "Real-time campaign monitoring with comprehensive reporting on key performance indicators.",
+      titleKey: "blockFiveTitle",
+      descriptionKey: "blockFiveDescription",
     },
     {
       icon: <Users className="h-8 w-8" />,
-      title: "Community Building",
-      description:
-        "Strategies to foster loyal communities around your project for sustainable long-term growth.",
+      titleKey: "blockSixTitle",
+      descriptionKey: "blockSixDescription",
     },
   ];
 
@@ -80,15 +77,13 @@ const SolutionSection = () => {
           {/* Section header */}
           <div className="text-center mb-16">
             <span className="text-sm font-semibold text-white/60 uppercase tracking-wider kanit-text">
-              Our Approach
+              {t("miniTitle")}
             </span>
             <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 kanit-text  text-white/90">
               Kollabs
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              We combine strategic expertise, data analytics, and an exclusive
-              network of influential creators to deliver measurable growth for
-              your project.
+              {t("solutionDescription")}
             </p>
           </div>
 
@@ -99,7 +94,7 @@ const SolutionSection = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            {features.map((feature, index) => (
+            {featureData.map((feature, index) => (
               <motion.div
                 key={index}
                 custom={index}
@@ -120,9 +115,9 @@ const SolutionSection = () => {
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-3 kanit-text  text-white/90">
-                  {feature.title}
+                  {t(feature.titleKey)}
                 </h3>
-                <p className="text-white/70">{feature.description}</p>
+                <p className="text-white/70">{t(feature.descriptionKey)}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -146,13 +141,11 @@ const SolutionSection = () => {
                   "inline-block kanit-text"
                 )}
               >
-                Elevate Your Project with Kollabs
+                {t("solutionButton")}
               </a>
             </div>
             <p className="text-white/60 mt-6 max-w-lg mx-auto">
-              Our unique methodologies have consistently delivered exceptional
-              results across various market conditions. Experience the Kollabs
-              difference.
+              {t("solutionFooter")}
             </p>
           </motion.div>
         </div>

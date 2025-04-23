@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-
+import { useLanguage } from "@/context/LanguageContext";
 // Sample client logos - replace with actual data
 const clientLogos = [
   { name: "bullx", logo: "/Image/bullx.png" },
@@ -64,6 +64,7 @@ const ClientLogo = ({ client }: { client: { name: string; logo: string } }) => {
 };
 
 const ClientsSlider = () => {
+  const { t } = useLanguage(); // Assuming you have a translation function in your context
   const controls1 = useAnimationControls();
   const controls2 = useAnimationControls();
   const slider1Ref = useRef<HTMLDivElement>(null);
@@ -104,7 +105,7 @@ const ClientsSlider = () => {
     <section className="py-16 bg-black relative overflow-hidden">
       <div className="mb-12 text-center">
         <h2 className="text-2xl md:text-3xl font-bold kanit-text text-white/90">
-          Trusted by Leading Projects
+          {t("clientsTitle")}
         </h2>
       </div>
 

@@ -5,16 +5,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-
+import { useLanguage } from "@/context/LanguageContext";
+import LanguageSelector from "../LanguageSelector";
 // Navigation links
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Our Story", href: "#about" },
-  { label: "Creators", href: "#kols" },
-  { label: "Services", href: "#services" },
+  { label: "Home", href: "/" },
+  { label: "Our Story", href: "/our-story" },
+  { label: "Creators", href: "/#creators" },
+  { label: "Services", href: "/#services" },
 ];
 
 const Navbar = () => {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -94,6 +96,9 @@ const Navbar = () => {
               Contact Us
             </Link>
           </motion.li>
+          <motion.li custom={navLinks.length} variants={navItemVariants}>
+            <LanguageSelector />
+          </motion.li>
         </ul>
       </motion.nav>
 
@@ -167,6 +172,14 @@ const Navbar = () => {
                 >
                   Contact Us
                 </Link>
+              </motion.li>
+              <motion.li
+                custom={navLinks.length}
+                variants={navItemVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <LanguageSelector />
               </motion.li>
             </ul>
           </motion.div>

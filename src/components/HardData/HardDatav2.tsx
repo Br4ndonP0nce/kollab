@@ -14,16 +14,15 @@ import {
   DollarSign,
 } from "lucide-react";
 import CountUp from "react-countup";
-
+import { useLanguage } from "@/context/LanguageContext";
 // Campaign data
 const campaignData = [
   {
     id: "botify",
     name: "BOTIFY",
-    description: "COMPREHENSIVE KOL CAMPAIGN",
+    description: "botifyBriefing",
     highlight: "18M → 61M MARKETCAP",
-    narrative:
-      "Kollabs stepped in as Botify's strategic advisor to help execute their growth campaign. We handpicked and onboarded 20 key KOLs, alongside designing a tokenomics model that incentivized long-term holding. Through targeted exposure, Botify saw its marketcap surge from $18M to $61M, a 239% increase in just 45 days.",
+    narrative: "botify",
     metrics: [
       {
         label: "KOLS ONBOARDED",
@@ -64,10 +63,9 @@ const campaignData = [
   {
     id: "altura",
     name: "ALTURA",
-    description: "TIER 1 TARGETED KOL CAMPAIGN",
+    description: "alturaBriefing",
     highlight: "+126M MARKETCAP IN 2 WEEKS",
-    narrative:
-      "Altura partnered with our team to execute a hyper-targeted Tier 1 KOL campaign. We strategically selected 6 premium influencers with highly engaged communities in the NFT and gaming sectors. The coordinated content rollout drove incredible momentum, resulting in a 126% price increase in just 10 days and 2.6M views across platforms.",
+    narrative: "altura",
     metrics: [
       {
         label: "TIER 1 KOLS",
@@ -100,10 +98,9 @@ const campaignData = [
   {
     id: "lemoncash",
     name: "LEMON CASH",
-    description: "REGIONAL EXPANSION CAMPAIGN",
+    description: "lemoncashBriefing",
     highlight: "150K → 400K ACTIVE USERS",
-    narrative:
-      "Kollabs stepped in as Lemon Cash's strategic advisor for their regional expansion. We handpicked and onboarded 45+ regional KOLs to target specific demographics and communities. Through this systematic approach, we were able to drive 150,000 new users in just two weeks. The campaign's momentum continued, helping Lemon Cash grow to over 400,000 active users in the region.",
+    narrative: "lemoncash",
     metrics: [
       {
         label: "NEW USERS",
@@ -137,6 +134,7 @@ const campaignData = [
 ];
 
 const StackedHardDataSection = () => {
+  const { t } = useLanguage();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   const controls = useAnimation();
@@ -198,14 +196,14 @@ const StackedHardDataSection = () => {
           {/* Section header */}
           <motion.div variants={itemVariants} className="text-center mb-16">
             <span className="text-sm inline-block px-3 py-1 rounded-full mb-4 bg-white/5 text-white/80 uppercase tracking-widest kanit-text">
-              VERIFIED GROWTH
+              {t("hardDataHeader")}
             </span>
             <h2 className="text-4xl md:text-6xl font-bold mb-6 kanit-text text-white">
-              RESULTS THAT <span className="text-white/80">SPEAK VOLUMES</span>
+              {t("hardDataTitle")}{" "}
+              <span className="text-white/80">{t("hardDataTitle2")}</span>
             </h2>
             <p className="text-lg text-white/70 max-w-3xl mx-auto">
-              Our strategies don't just promise growth — they deliver tangible,
-              market-moving outcomes that transform projects.
+              {t("hardDataDescription")}
             </p>
           </motion.div>
 
@@ -234,7 +232,7 @@ const StackedHardDataSection = () => {
                       </div>
 
                       <span className="text-sm text-white/60 kanit-text">
-                        {campaign.description}
+                        {t(campaign.description)}
                       </span>
 
                       <h3 className="text-2xl md:text-3xl font-bold my-3 kanit-text text-white">
@@ -242,14 +240,14 @@ const StackedHardDataSection = () => {
                       </h3>
 
                       <p className="text-sm md:text-base text-white/70 mb-4">
-                        {campaign.narrative}
+                        {t(campaign.narrative)}
                       </p>
 
                       <a
                         href="#contact"
                         className="inline-flex items-center text-sm px-4 py-2 mt-3 bg-white text-black rounded-full kanit-text font-medium hover:bg-white/90 transition-all"
                       >
-                        GET SIMILAR RESULTS{" "}
+                        {t("solutionSectionButton")}
                         <ArrowUpRight className="ml-2 h-3.5 w-3.5" />
                       </a>
                     </div>
@@ -317,9 +315,7 @@ const StackedHardDataSection = () => {
           <motion.div variants={itemVariants} className="mt-16 text-center">
             <div className="inline-flex items-center justify-center px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl max-w-3xl">
               <p className="text-white/80 italic text-sm">
-                "The KOL campaigns created unprecedented momentum and market
-                interest. We saw immediate impact across all our growth
-                metrics."
+                {t("dataParagraph")}
               </p>
             </div>
           </motion.div>

@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { X } from "lucide-react";
-
+import { useLanguage } from "@/context/LanguageContext";
 // Sample gallery images - replace with actual images
 const galleryItems = [
   {
@@ -58,6 +58,7 @@ const galleryItems = [
 ];
 
 const MeetUsSection = () => {
+  const { t } = useLanguage();
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
@@ -163,16 +164,11 @@ const MeetUsSection = () => {
         <div className="max-w-6xl mx-auto">
           {/* Section header */}
           <div className="text-center mb-10">
-            <span className="text-sm font-semibold text-white/60 uppercase tracking-wider kanit-text">
-              Our Space
-            </span>
             <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4 kanit-text text-white/90">
-              Meet With Us in Person
+              {t("meetUsTitle")}
             </h2>
             <p className="text-lg text-white/80 max-w-2xl mx-auto">
-              We love to attend events, Whats more is we also love all the ins
-              and outs of events: organizing speaking and connecting with
-              people.
+              {t("meetUsDescription")}
             </p>
           </div>
 
@@ -212,7 +208,7 @@ const MeetUsSection = () => {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
                       <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                        <h3 className="text-lg font-bold kanit-text">
+                        <h3 className="text-lg font-bold kanit-text text-white/90">
                           {item.title}
                         </h3>
                       </div>
@@ -260,7 +256,7 @@ const MeetUsSection = () => {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-2xl font-bold mb-2 kanit-text">
+                      <h3 className="text-2xl font-bold mb-2 kanit-text text-white/90">
                         {tripleItems[selectedImage].title}
                       </h3>
                       <p className="text-white/80">

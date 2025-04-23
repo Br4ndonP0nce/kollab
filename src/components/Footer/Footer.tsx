@@ -5,38 +5,41 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Twitter, Linkedin, Send, MessageSquare, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// Navigation links
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Our Story", href: "#about" },
-  { label: "Creators", href: "#kols" },
-  { label: "Services", href: "#services" },
-];
-
-// Social media links
-const socialLinks = [
-  {
-    platform: "Telegram",
-    url: "https://t.me/Kollabsagency",
-    icon: <Send className="h-5 w-5" />,
-  },
-  {
-    platform: "Mail",
-    url: "mailto:contact@kollabs.tech",
-    icon: <Mail className="h-5 w-5" />,
-  },
-];
-
-// Service links
-const serviceLinks = [
-  { label: "KOL Marketing", href: "#" },
-  { label: "Community Building", href: "#" },
-  { label: "Growth Strategy", href: "#" },
-  { label: "Campaign Analytics", href: "#" },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
+  // Navigation links
+  const navLinks = [
+    { labelKey: "navHome", href: "#home" },
+    { labelKey: "navOurStory", href: "#about" },
+    { labelKey: "navCreators", href: "#kols" },
+    { labelKey: "navServices", href: "#services" },
+  ];
+
+  // Social media links
+  const socialLinks = [
+    {
+      platform: "Telegram",
+      url: "https://t.me/Kollabsagency",
+      icon: <Send className="h-5 w-5" />,
+    },
+    {
+      platform: "Mail",
+      url: "mailto:contact@kollabs.tech",
+      icon: <Mail className="h-5 w-5" />,
+    },
+  ];
+
+  // Service links
+  const serviceLinks = [
+    { labelKey: "serviceKOL", href: "#" },
+    { labelKey: "serviceCommunity", href: "#" },
+    { labelKey: "serviceGrowth", href: "#" },
+    { labelKey: "serviceAnalytics", href: "#" },
+  ];
+
   return (
     <footer className="bg-black relative overflow-hidden pt-16 pb-8">
       {/* Background gradient */}
@@ -50,10 +53,7 @@ const Footer = () => {
               <h3 className="text-2xl font-bold mb-6 kanit-text text-white/90">
                 Kollabs
               </h3>
-              <p className="text-white/70 mb-6">
-                Connecting projects with influential KOLs to drive authentic
-                growth and real market impact.
-              </p>
+              <p className="text-white/70 mb-6">{t("footerTagline")}</p>
               <div className="flex space-x-3">
                 {socialLinks.map((social) => (
                   <a
@@ -73,16 +73,16 @@ const Footer = () => {
             {/* Quick links column */}
             <div>
               <h4 className="text-lg font-semibold mb-6 kanit-text text-white/90">
-                Quick Links
+                {t("footerQuickLinks")}
               </h4>
               <ul className="space-y-4">
                 {navLinks.map((link) => (
-                  <li key={link.label}>
+                  <li key={link.labelKey}>
                     <Link
                       href={link.href}
                       className="text-white/70 hover:text-white transition-colors duration-300"
                     >
-                      {link.label}
+                      {t(link.labelKey)}
                     </Link>
                   </li>
                 ))}
@@ -91,17 +91,17 @@ const Footer = () => {
 
             {/* Services column */}
             <div>
-              <h4 className="text-lg font-semibold mb-6 kanit-text  text-white/90">
-                Services
+              <h4 className="text-lg font-semibold mb-6 kanit-text text-white/90">
+                {t("footerServices")}
               </h4>
               <ul className="space-y-4">
                 {serviceLinks.map((link) => (
-                  <li key={link.label}>
+                  <li key={link.labelKey}>
                     <Link
                       href={link.href}
                       className="text-white/70 hover:text-white transition-colors duration-300"
                     >
-                      {link.label}
+                      {t(link.labelKey)}
                     </Link>
                   </li>
                 ))}
@@ -110,11 +110,11 @@ const Footer = () => {
 
             {/* Contact column */}
             <div>
-              <h4 className="text-lg font-semibold mb-6 kanit-text  text-white/90">
-                Contact Us
+              <h4 className="text-lg font-semibold mb-6 kanit-text text-white/90">
+                {t("footerContactUs")}
               </h4>
               <address className="not-italic text-white/70 space-y-4 ">
-                <p>Dubai, UAE</p>
+                <p>{t("footerLocation")}</p>
                 <p>
                   <a
                     href="mailto:contact@kollabs.tech"
@@ -130,21 +130,20 @@ const Footer = () => {
           {/* Bottom bar with copyright */}
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-white/50 text-sm mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} Kollabs Agency. All rights
-              reserved.
+              &copy; {new Date().getFullYear()} {t("footerCopyright")}
             </p>
             <div className="flex space-x-6 text-sm text-white/50">
               <Link
                 href="#"
                 className="hover:text-white/80 transition-colors duration-300"
               >
-                Privacy Policy
+                {t("footerPrivacy")}
               </Link>
               <Link
                 href="#"
                 className="hover:text-white/80 transition-colors duration-300"
               >
-                Terms of Service
+                {t("footerTerms")}
               </Link>
             </div>
           </div>

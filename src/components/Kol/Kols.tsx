@@ -5,8 +5,9 @@ import { motion } from "framer-motion";
 import { kols } from "@/lib/constants";
 import Image from "next/image";
 import { Linkedin } from "lucide-react";
-
+import { useLanguage } from "@/context/LanguageContext";
 const ImprovedKolsSection = () => {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
@@ -107,7 +108,7 @@ const ImprovedKolsSection = () => {
 
   return (
     <section
-      id="core-team"
+      id="creators"
       ref={containerRef}
       className="py-24 bg-black relative overflow-hidden"
     >
@@ -127,14 +128,13 @@ const ImprovedKolsSection = () => {
           {/* Section header */}
           <div className="text-center mb-16">
             <span className="text-sm font-semibold text-white/60 uppercase tracking-wider">
-              Our Network
+              {t("kolTitle")}
             </span>
             <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 text-white/90 kanit-text">
               Key Opinion Leaders
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              We partner with high-impact creators across all major platforms to
-              amplify your message and drive targeted engagement.
+              {t("kolDescription")}
             </p>
           </div>
 

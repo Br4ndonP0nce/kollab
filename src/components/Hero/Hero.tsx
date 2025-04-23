@@ -5,8 +5,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-
+import { useLanguage } from "@/context/LanguageContext";
 const HeroSection = () => {
+  const { t } = useLanguage();
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -74,10 +75,10 @@ const HeroSection = () => {
             className="text-5xl md:text-7xl font-bold tracking-tight mb-6 kanit-text"
           >
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/80">
-              Connect. Amplify.{" "}
+              {t("slogan1")}
             </span>
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white/90 to-white/70">
-              Dominate.
+              {t("slogan2")}
             </span>
           </motion.h1>
 
@@ -85,9 +86,8 @@ const HeroSection = () => {
             variants={itemVariants}
             className="text-xl md:text-2xl text-white/80 mb-10 max-w-3xl mx-auto text-balance"
           >
-            Where crypto meets influence <br />
-            <span className="text-white font-semibold"> real voices</span>
-            <span className="text-white font-semibold"> real results.</span>
+            {t("heroIntro")} <br />
+            <span className="text-white font-semibold"> {t("heroIntro2")}</span>
           </motion.p>
 
           <motion.div
@@ -103,7 +103,7 @@ const HeroSection = () => {
                 "transition-all duration-300 hover-lift"
               )}
             >
-              Work With Us <ArrowRight className="ml-2" size={18} />
+              {t("workWithUs")} <ArrowRight className="ml-2" size={18} />
             </Link>
 
             <Link
@@ -115,7 +115,7 @@ const HeroSection = () => {
                 "transition-all duration-300"
               )}
             >
-              View Case Studies
+              {t("caseStudies")}
             </Link>
           </motion.div>
 
@@ -128,13 +128,13 @@ const HeroSection = () => {
               <h3 className="text-4xl md:text-5xl font-bold text-white mb-2 kanit-text">
                 250+
               </h3>
-              <p className="text-white/70">KOLs in our Network</p>
+              <p className="text-white/70">{t("kols")}</p>
             </div>
             <div className="p-6 rounded-2xl glass-effect">
               <h3 className="text-4xl md:text-5xl font-bold text-white mb-2 kanit-text">
                 40M+
               </h3>
-              <p className="text-white/70">Average Monthly Views</p>
+              <p className="text-white/70">{t("views")}</p>
             </div>
           </motion.div>
         </motion.div>
