@@ -1,4 +1,4 @@
-// Create a new file: src/app/sitemap.ts
+// src/app/sitemap.ts - Updated version
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
