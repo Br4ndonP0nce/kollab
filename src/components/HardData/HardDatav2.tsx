@@ -185,7 +185,7 @@ const StackedHardDataSection = () => {
       <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-5" />
 
       {/* Content container */}
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10" id="case-studies">
         <motion.div
           ref={ref}
           initial="hidden"

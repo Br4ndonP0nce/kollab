@@ -105,7 +105,7 @@ const ContactSection = () => {
                 {/* Contact details */}
                 <div className="space-y-6 mb-10">
                   <div className="flex items-start">
-                    <div className="p-2 bg-white/10 rounded-full mr-4">
+                    <div className="p-2 bg-white/10 rounded-full mr-4 text-white/90">
                       <Mail className="h-5 w-5" />
                     </div>
                     <div>
@@ -141,7 +141,7 @@ const ContactSection = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors duration-300"
+                        className="p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors duration-300 text-white/90"
                         aria-label={social.platform}
                       >
                         {social.icon}
