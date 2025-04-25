@@ -34,6 +34,7 @@ export default function Home() {
   };
   return (
     <>
+      <div className="fixed inset-0 bg-black -z-10"></div>
       {loading && <Preloader />}
 
       {/* All Sections */}

@@ -1,20 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Preloader = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   // Generate grid items - create a 10x10 grid for more dramatic effect
   const gridItems = Array.from({ length: 100 }, (_, i) => (
     <motion.div
@@ -32,8 +21,6 @@ const Preloader = () => {
       }}
     />
   ));
-
-  if (!loading) return null;
 
   return (
     <motion.div
