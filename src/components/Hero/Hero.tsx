@@ -64,7 +64,7 @@ const HeroSection = () => {
 
           <motion.h1
             variants={itemVariants}
-            className="text-5xl md:text-7xl font-bold tracking-tight mb-6 kanit-text text-balance text-white/80"
+            className="text-5xl md:text-4xl font-bold tracking-tight mb-6 kanit-text text-balance text-white/80"
           >
             {t("heroIntro")} <br />
             <span className="text-white font-semibold">{t("heroIntro2")}</span>
@@ -78,7 +78,7 @@ const HeroSection = () => {
               href="#contact"
               className={cn(
                 "inline-flex items-center justify-center",
-                "bg-primary text-primary-foreground hover:bg-primary/90",
+                " hover:bg-white/90 bg-white text-black",
                 "rounded-full px-8 py-4 text-lg font-medium",
                 "transition-all duration-300 hover-lift"
               )}
