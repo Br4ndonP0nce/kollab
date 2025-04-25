@@ -118,7 +118,7 @@ const ImprovedKolsSection = () => {
 
       {/* Background pattern with parallax effect */}
       <motion.div
-        className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-5"
+        className="absolute inset-0 grid-background bg-repeat opacity-5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.05 }}
         transition={{ duration: 1 }}

@@ -66,7 +66,7 @@ const OurStorySection = () => {
     <section className="py-24 bg-black relative overflow-hidden" id="our-story">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black/95" />
-      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-5" />
+      <div className="absolute inset-0  bg-repeat opacity-5" />
 
       {/* Content container */}
       <div className="container mx-auto px-4 relative z-10">

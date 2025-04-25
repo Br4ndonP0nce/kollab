@@ -52,7 +52,6 @@ const campaignData = [
         color: "bg-white/10",
       },
     ],
-    background: "bg-[url('/gradient-3.webp')]",
   },
   {
     id: "altura",
@@ -79,7 +78,6 @@ const campaignData = [
         color: "bg-white/10",
       },
     ],
-    background: "bg-[url('/gradient-2.webp')]",
   },
   {
     id: "botify",
@@ -122,7 +120,6 @@ const campaignData = [
         color: "bg-white/10",
       },
     ],
-    background: "bg-[url('/gradient-1.webp')]",
   },
 ];
 
@@ -175,7 +172,7 @@ const StackedHardDataSection = () => {
     <section className="py-24 bg-black relative overflow-hidden" id="results">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black/95" />
-      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-5" />
+      <div className="absolute inset-0  bg-repeat opacity-5" />
 
       {/* Content container */}
       <div className="container mx-auto px-4 relative z-10" id="case-studies">
@@ -209,7 +206,7 @@ const StackedHardDataSection = () => {
                 variants={cardVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
-                className={`relative rounded-xl overflow-hidden ${campaign.background} bg-cover bg-center`}
+                className={`relative rounded-xl overflow-hidden  bg-cover bg-center`}
               >
                 {/* Overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-transparent" />
@@ -303,15 +300,6 @@ const StackedHardDataSection = () => {
               </motion.div>
             ))}
           </div>
-
-          {/* Bottom testimonial */}
-          <motion.div variants={itemVariants} className="mt-16 text-center">
-            <div className="inline-flex items-center justify-center px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl max-w-3xl">
-              <p className="text-white/80 italic text-sm">
-                {t("dataParagraph")}
-              </p>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>
