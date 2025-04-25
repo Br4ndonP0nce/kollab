@@ -7,22 +7,23 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/LanguageContext";
 import LanguageSelector from "../LanguageSelector";
+
 // Navigation links
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Our Story", href: "/our-story" },
-  { label: "Creators", href: "/#creators" },
-  { label: "Services", href: "/#services" },
+  { labelKey: "navHome", href: "/" },
+  { labelKey: "navOurStory", href: "/our-story" },
+  { labelKey: "navCreators", href: "/#creators" },
+  { labelKey: "navServices", href: "/#services" },
 ];
 
-const Navbar = () => {
+const ClassicNavbar = () => {
   const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 20) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -36,148 +37,156 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   // Animation variants
-  const navVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
-  const navItemVariants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: (i: number) => ({
-      opacity: 1,
+  const navbarVariants = {
+    initial: { y: -100 },
+    animate: {
       y: 0,
-      transition: { delay: 0.1 * i, duration: 0.3 },
-    }),
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+      },
+    },
   };
 
-  const mobileMenuVariants = {
-    closed: { opacity: 0, scale: 0.95, y: -10 },
-    open: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.3 } },
+  const scrolledNavbarVariants = {
+    notScrolled: {
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      backdropFilter: "blur(8px)",
+      height: "80px",
+      borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+    },
+    scrolled: {
+      backgroundColor: "rgba(0, 0, 0, 0.9)",
+      backdropFilter: "blur(12px)",
+      height: "70px",
+      borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+      boxShadow: "0 4px 30px rgba(0, 0, 0, 0.2)",
+    },
   };
 
   return (
     <>
-      {/* Desktop Navbar - Floating at bottom right */}
-      <motion.nav
-        className={cn(
-          "fixed z-50 hidden md:flex",
-          "backdrop-blur-md bg-black/80 rounded-full px-4 py-3 shadow-lg",
-          "bottom-8 right-8 border-[1px] border-white/60"
-        )}
-        initial="hidden"
-        animate="visible"
-        variants={navVariants}
+      {/* Desktop Navbar - Classic Sticky Top Header */}
+      <motion.header
+        className="fixed top-0 left-0 right-0 z-50 w-full"
+        initial="initial"
+        animate="animate"
+        variants={navbarVariants}
       >
-        <ul className="flex items-center space-x-6">
-          {navLinks.map((link, index) => (
-            <motion.li
-              key={link.label}
-              custom={index}
-              variants={navItemVariants}
-            >
+        <motion.nav
+          className="flex items-center justify-between px-6 md:px-12 lg:px-20 transition-all duration-300"
+          initial="notScrolled"
+          animate={isScrolled ? "scrolled" : "notScrolled"}
+          variants={scrolledNavbarVariants}
+        >
+          {/* Logo */}
+          <Link href="/" className="py-4">
+            <span className="text-2xl font-bold text-white kanit-text">
+              KOLLABS
+            </span>
+          </Link>
+
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
               <Link
+                key={link.labelKey}
                 href={link.href}
-                className="text-white hover:text-white/80 transition-colors duration-300 font-medium kanit-text"
+                className="text-white hover:text-white/80 transition-all duration-300 font-medium kanit-text relative group"
               >
-                {link.label}
+                {t(link.labelKey)}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
               </Link>
-            </motion.li>
-          ))}
-          <motion.li custom={navLinks.length} variants={navItemVariants}>
+            ))}
             <Link
               href="#contact"
               className={cn(
                 "bg-white text-black hover:bg-white/90",
-                "rounded-full px-6 py-2",
+                "rounded-full px-5 py-2",
                 "font-medium transition-colors duration-300",
                 "kanit-text"
               )}
             >
-              Contact Us
+              {t("navContact")}
             </Link>
-          </motion.li>
-          <motion.li custom={navLinks.length} variants={navItemVariants}>
             <LanguageSelector />
-          </motion.li>
-        </ul>
-      </motion.nav>
+          </div>
 
-      {/* Mobile Navbar - Floating at top center with hamburger */}
-      <motion.nav
-        className={cn(
-          "fixed z-50 flex md:hidden justify-between items-center",
-          "backdrop-blur-md bg-black/80 rounded-full px-4 py-2.5 shadow-lg",
-          "top-4 left-1/2 -translate-x-1/2",
-          "min-w-[200px] border-[1px] border-white/60"
-        )}
-        initial="hidden"
-        animate="visible"
-        variants={navVariants}
-      >
-        <Link href="/" className="text-lg font-bold kanit-text text-white/90">
-          Kollabs
-        </Link>
-        <button
-          onClick={toggleMenu}
-          className="p-2 text-white hover:text-white/80 transition-colors"
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </motion.nav>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleMenu}
+            className="p-2 text-white md:hidden"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </motion.nav>
+      </motion.header>
 
       {/* Mobile menu dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-black/95 z-40 flex flex-col items-center justify-center md:hidden"
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={mobileMenuVariants}
+            className="fixed inset-0 bg-black/95 z-40 flex flex-col items-center justify-center md:hidden pt-20"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            transition={{ duration: 0.3 }}
           >
-            <ul className="flex flex-col items-center space-y-6">
+            <ul className="flex flex-col items-center space-y-6 w-full px-12">
               {navLinks.map((link, index) => (
                 <motion.li
-                  key={link.label}
-                  custom={index}
-                  variants={navItemVariants}
-                  initial="hidden"
-                  animate="visible"
+                  key={link.labelKey}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: { delay: 0.1 * index, duration: 0.3 },
+                  }}
+                  className="w-full text-center"
                 >
                   <Link
                     href={link.href}
-                    className="text-white text-2xl hover:text-white/80 transition-colors font-medium kanit-text"
+                    className="text-white text-xl hover:text-white/80 transition-colors font-medium kanit-text block py-2"
                     onClick={toggleMenu}
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                   </Link>
+                  <div className="h-px w-full bg-white/20 mt-6"></div>
                 </motion.li>
               ))}
               <motion.li
-                custom={navLinks.length}
-                variants={navItemVariants}
-                initial="hidden"
-                animate="visible"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 0.1 * navLinks.length, duration: 0.3 },
+                }}
               >
                 <Link
                   href="#contact"
                   onClick={toggleMenu}
                   className={cn(
                     "bg-white text-black hover:bg-white/90",
-                    "rounded-full px-8 py-4 text-lg",
+                    "rounded-full px-8 py-3",
                     "font-medium transition-colors duration-300 mt-4 inline-block",
                     "kanit-text"
                   )}
                 >
-                  Contact Us
+                  {t("navContact")}
                 </Link>
               </motion.li>
               <motion.li
-                custom={navLinks.length}
-                variants={navItemVariants}
-                initial="hidden"
-                animate="visible"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    delay: 0.1 * (navLinks.length + 1),
+                    duration: 0.3,
+                  },
+                }}
               >
                 <LanguageSelector />
               </motion.li>
@@ -189,4 +198,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default ClassicNavbar;

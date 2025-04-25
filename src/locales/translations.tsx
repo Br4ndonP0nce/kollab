@@ -39,7 +39,7 @@ export const translations = {
     //Block One
     extensiveNetwork: "Extensive Network",
     blockOneDescription:
-      "Access to 250+ vetted KOLs and influencers across major platforms with genuine engaged audiences.",
+      "Access to 400 vetted KOLs and influencers across major platforms with genuine engaged audiences.",
     //Block Two
     blockTwoTitle: "Data-Driven Approach",
     blockTwoDescription:
@@ -66,7 +66,7 @@ export const translations = {
 
     //KOL Section
     kolTitle: "OUR NETWORK",
-    kolDescription: `We partner with high-impact creators across all major platforms to amplify your message and drive targeted engagement.`,
+    kolDescription: `We partner with top-tier content creators across —Twitter, YouTube, TikTok, Instagram, Private Discord & Telegram groups.`,
 
     //Team section
     teamTitle: "MEET THE TEAM",
@@ -87,12 +87,19 @@ export const translations = {
     formMessageTitle: "Message",
 
     //solutionSection
-    botify:
-      "Kollabs stepped in as Botify's strategic advisor to help execute their growth campaign. We handpicked and onboarded 20 key KOLs, alongside designing a tokenomics model that incentivized long-term holding. Through targeted exposure, Botify saw its marketcap surge from $18M to $61M, a 239% increase in just 45 days.",
+    botify: `Kollabs stepped in as Botify’s strategic growth partner, handpicking and onboarding key KOLs for their campaign.
+
+Through targeted exposure, Botify’s market cap surged from $18M to $61M — a 338% increase`,
     altura:
       "Altura partnered with our team to execute a hyper-targeted Tier 1 KOL campaign. We strategically selected 6 premium influencers with highly engaged communities in the NFT and gaming sectors. The coordinated content rollout drove incredible momentum, resulting in a 126% price increase in just 10 days and 2.6M views across platforms.",
-    lemoncash:
-      "Kollabs stepped in as Lemon Cash's strategic advisor for their regional expansion. We handpicked and onboarded 45+ regional KOLs to target specific demographics and communities. Through this systematic approach, we were able to drive 150,000 new users in just two weeks. The campaign's momentum continued, helping Lemon Cash grow to over 400,000 active users in the region.",
+    lemoncash: `Kollabs stepped in as Lemon Cash's strategic advisor for their regional expansion. We handpicked and onboarded regional KOLs to target specific demographics and communities. 
+
+Through this systematic approach, we were able to drive 150,000 new users in just two weeks.
+
+The campaign's momentum continued, helping Lemon Cash grow to over 400,000 active users in the region.
+
+
+`,
     solutionSectionButton: "GET SIMILAR RESULTS",
     botifyBriefing: "COMPREHENSIVE KOL CAMPAIGN",
     alturaBriefing: "COMPREHENSIVE KOL CAMPAIGN",
@@ -114,12 +121,14 @@ export const translations = {
     navOurStory: "Our Story",
     navCreators: "Creators",
     navServices: "Services",
+    navContact: "Contact Us",
 
     // Service Links
     serviceKOL: "KOL Marketing",
     serviceCommunity: "Community Building",
     serviceGrowth: "Growth Strategy",
     serviceAnalytics: "Campaign Analytics",
+    kolCTA: "Unlock our KOL Network",
   },
 
   es: {
@@ -183,7 +192,7 @@ export const translations = {
       "Nuestras metodologías únicas han entregado consistentemente resultados excepcionales en diversas condiciones de mercado. Experimenta la diferencia de Kollabs.",
     //KOL Section
     kolTitle: "NUESTRA RED",
-    kolDescription: `Colaboramos con creadores de alto impacto en todas las plataformas principales para amplificar tu mensaje y generar un compromiso dirigido.`,
+    kolDescription: `Colaboramos con creadores de contenido de primer nivel en Twitter, YouTube, TikTok, Instagram, Discord privado y grupos de Telegram.`,
     teamTitle: "NUESTRO EQUIPO",
     teamDescription: `Nuestro experimentado equipo de expertos de la industria aporta años de conocimiento en marketing Web3, construcción de comunidades y estrategias de crecimiento.`,
 
@@ -205,11 +214,10 @@ export const translations = {
 
     //solutionSection
     botify:
-      "Kollabs se convirtió en el asesor estratégico de Botify para ayudar a ejecutar su campaña de crecimiento. Seleccionamos y reclutamos a 20 KOLs clave, además de diseñar un modelo de tokenomics que incentivó la retención a largo plazo. A través de una exposición dirigida, Botify vio su capitalización de mercado aumentar de $18M a $61M, un aumento del 239% en solo 45 días.",
+      "Kollabs se convirtió en el socio estratégico de crecimiento de Botify, seleccionando y reclutando KOLs clave para su campaña. A través de una exposición dirigida, la capitalización de mercado de Botify aumentó de $18M a $61M, un aumento del 338%.",
     altura:
       "Altura se asoció con nuestro equipo para ejecutar una campaña hiper-dirigida de KOLs de nivel 1. Seleccionamos estratégicamente a 6 influencers premium con comunidades altamente comprometidas en los sectores de NFT y gaming. El lanzamiento coordinado de contenido impulsó un increíble impulso, resultando en un aumento del 126% en el precio en solo 10 días y 2.6M de vistas en todas las plataformas.",
-    lemoncash:
-      "Kollabs se convirtió en el asesor estratégico de Lemon Cash para su expansión regional. Seleccionamos y recl",
+    lemoncash: `Kollabs se convirtió en el asesor estratégico de Lemon Cash para su expansión regional. Seleccionamos y reclutamos KOLs regionales para dirigirse a demografías y comunidades específicas. A través de este enfoque sistemático, logramos impulsar 150,000 nuevos usuarios en solo dos semanas. La campaña continuó creciendo, ayudando a Lemon Cash a alcanzar más de 400,000 usuarios activos en la región.`,
     solutionSectionButton: "OBTEN RESULTADOS SIMILARES",
     botifyBriefing: "CAMPAÑA KOL COMPRENSIVA",
     alturaBriefing: "CAMPAÑA CON KOLs DE NIVEL TOP",
@@ -231,11 +239,13 @@ export const translations = {
     navOurStory: "Nuestra Historia",
     navCreators: "Creadores",
     navServices: "Servicios",
+    navContact: "Contáctanos",
 
     // Service Links
     serviceKOL: "Marketing con KOLs",
     serviceCommunity: "COMMUNITY BUILDING",
     serviceGrowth: "Estrategia de Crecimiento",
     serviceAnalytics: "Análisis de Campañas",
+    kolCTA: "Desbloquea nuestra red de KOLs",
   },
 };

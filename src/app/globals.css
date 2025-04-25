@@ -315,3 +315,88 @@ html {
 body {
   -webkit-overflow-scrolling: touch;
 }
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-250px * 11));
+  }
+}
+
+@keyframes scroll-reverse {
+  0% {
+    transform: translateX(calc(-250px * 11));
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.infinite-carousel {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.infinite-carousel::before,
+.infinite-carousel::after {
+  content: "";
+  height: 100%;
+  position: absolute;
+  width: 100px;
+  z-index: 2;
+}
+
+.infinite-carousel::after {
+  right: 0;
+  top: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.infinite-carousel::before {
+  left: 0;
+  top: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.slide-track {
+  animation: scroll 40s linear infinite;
+  display: flex;
+  width: calc(250px * 22);
+  /* Double the slides */
+}
+
+.slide-track-reverse {
+  animation: scroll-reverse 40s linear infinite;
+  display: flex;
+  width: calc(250px * 22);
+  /* Double the slides */
+}
+
+/* Adjust animation speed for mobile */
+@media (max-width: 768px) {
+  .slide-track {
+    animation: scroll 25s linear infinite;
+  }
+
+  .slide-track-reverse {
+    animation: scroll-reverse 25s linear infinite;
+  }
+}
+
+.slide {
+  height: 112px;
+  /* h-28 in Tailwind */
+  width: 208px;
+  /* w-52 in Tailwind */
+  flex-shrink: 0;
+}
+
+/* Pauses animation on hover */
+.slide-track:hover,
+.slide-track-reverse:hover {
+  animation-play-state: paused;
+}

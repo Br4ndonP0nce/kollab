@@ -72,23 +72,11 @@ const HeroSection = () => {
 
           <motion.h1
             variants={itemVariants}
-            className="text-5xl md:text-7xl font-bold tracking-tight mb-6 kanit-text"
-          >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/80">
-              {t("slogan1")}
-            </span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white/90 to-white/70">
-              {t("slogan2")}
-            </span>
-          </motion.h1>
-
-          <motion.p
-            variants={itemVariants}
-            className="text-xl md:text-2xl text-white/80 mb-10 max-w-3xl mx-auto text-balance"
+            className="text-5xl md:text-7xl font-bold tracking-tight mb-6 kanit-text text-balance  text-white/80 "
           >
             {t("heroIntro")} <br />
             <span className="text-white font-semibold"> {t("heroIntro2")}</span>
-          </motion.p>
+          </motion.h1>
 
           <motion.div
             variants={itemVariants}
@@ -126,13 +114,13 @@ const HeroSection = () => {
           >
             <div className="p-6 rounded-2xl glass-effect">
               <h3 className="text-4xl md:text-5xl font-bold text-white mb-2 kanit-text">
-                250+
+                400
               </h3>
               <p className="text-white/70">{t("kols")}</p>
             </div>
             <div className="p-6 rounded-2xl glass-effect">
               <h3 className="text-4xl md:text-5xl font-bold text-white mb-2 kanit-text">
-                40M+
+                110M+
               </h3>
               <p className="text-white/70">{t("views")}</p>
             </div>

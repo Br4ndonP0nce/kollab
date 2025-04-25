@@ -6,6 +6,7 @@ import { kols } from "@/lib/constants";
 import Image from "next/image";
 import { Linkedin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { cn } from "@/lib/utils";
 const ImprovedKolsSection = () => {
   const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -139,84 +140,28 @@ const ImprovedKolsSection = () => {
           </div>
 
           {/* "SWIPE" indicator */}
-          <div className="relative flex justify-end mb-6 mr-4 md:mr-8">
-            <motion.div
-              initial={{ x: -10, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="flex items-center"
-            >
-              <span className="mr-2 text-white/60 text-sm uppercase tracking-wider">
-                SWIPE
-              </span>
-              <div className="w-12 h-px bg-white/40"></div>
-            </motion.div>
-          </div>
-
-          {/* Improved horizontal scrollable section */}
-          <div
-            className="relative overflow-hidden mx-auto"
-            style={{ maxWidth: "calc(100vw - 40px)" }}
+          <motion.div
+            className="mt-16 pb-16 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6 }}
           >
-            <div
-              ref={scrollerRef}
-              className="relative pb-6 flex cursor-grab overflow-x-auto scrollbar-none touch-pan-x"
-              style={{
-                WebkitOverflowScrolling: "touch",
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-                width: "100%",
-              }}
-            >
-              {/* Triple the items for true infinite scrolling */}
-              <div className="flex gap-4">
-                {tripleKols.map((kol, index) => (
-                  <motion.div
-                    key={`${kol.id}-${index}`}
-                    className="flex-shrink-0 w-[280px] mx-2 overflow-hidden"
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="relative group">
-                      {/* Team Member Image */}
-                      <div className="relative h-[420px] w-[280px] overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
-                        <Image
-                          src={kol.image}
-                          alt={kol.name}
-                          fill
-                          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                        />
-
-                        {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
-
-                        {/* LinkedIn icon in top-left corner */}
-                        <div className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center text-white">
-                          <Linkedin size={20} />
-                        </div>
-
-                        {/* Team member info */}
-                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                          <h3 className="text-2xl font-bold mb-1">
-                            {kol.name.toUpperCase()}
-                          </h3>
-                          <div className="flex flex-col space-y-1 text-sm text-white/80">
-                            <span className="uppercase">
-                              {kol.specialty} SPECIALIST
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+            <div className="relative inline-block">
+              <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/40 rounded-full blur-md"></div>
+              <a
+                href="#contact"
+                className={cn(
+                  "relative bg-white text-black",
+                  "px-8 py-4 rounded-full font-medium",
+                  "hover:bg-white/90 transition-colors",
+                  "inline-block kanit-text"
+                )}
+              >
+                {t("kolCTA")}
+              </a>
             </div>
-
-            {/* Gradient overlays for scroll indication */}
-            <div className="absolute top-0 left-0 h-full w-12 bg-gradient-to-r from-black to-transparent pointer-events-none" />
-            <div className="absolute top-0 right-0 h-full w-12 bg-gradient-to-l from-black to-transparent pointer-events-none" />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

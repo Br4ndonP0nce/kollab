@@ -58,7 +58,7 @@ const OurStorySection = () => {
       year: "TODAY",
       title: "INDUSTRY LEADERSHIP",
       description:
-        "Recognized as the go-to KOL strategy partner for ambitious projects. Our network now includes 250+ influential voices and we've helped our clients achieve over $50M in combined growth.",
+        "Recognized as the go-to KOL strategy partner for ambitious projects. Our network now includes 400 influential voices and we've helped our clients achieve over $50M in combined growth.",
     },
   ];
 

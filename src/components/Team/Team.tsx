@@ -141,9 +141,6 @@ const TeamSection = () => {
                 CORE TEAM
               </span>
             </h2>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              {t("teamDescription")}
-            </p>
           </motion.div>
 
           {/* "SWIPE" indicator */}
