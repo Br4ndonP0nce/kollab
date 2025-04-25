@@ -69,7 +69,7 @@ const PureCssClientsSlider = () => {
             <div key={`row1-${index}`} className="slide mx-8">
               <div
                 className={cn(
-                  "grayscale opacity-70 hover:grayscale-0 hover:opacity-100",
+                  "  hover:grayscale-0 hover:opacity-100",
                   "transition-all duration-300",
                   "h-28 w-52 md:h-28 md:w-52", // Consistent size across devices
                   "glass-effect p-6 rounded-lg",

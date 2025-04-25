@@ -5,61 +5,66 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-// Sample gallery images - replace with actual images
-const galleryItems = [
+
+// Updated gallery images with categories
+const galleryCategories = [
   {
-    id: "office1",
-    title: "Our London Office",
-    image: "/api/placeholder/600/400",
-    description: "Our main headquarters in the heart of London",
+    category: "SIDE EVENTS",
+    items: [
+      {
+        id: "side-events",
+        title: "Side Events",
+        image: "/api/placeholder/600/400",
+        description:
+          "We organize exclusive side events at major blockchain conferences.",
+      },
+    ],
   },
   {
-    id: "team1",
-    title: "Team Building",
-    image: "/api/placeholder/600/400",
-    description: "Annual team retreat in Barcelona",
-  },
-  {
-    id: "event1",
-    title: "Blockchain Summit 2024",
-    image: "/api/placeholder/600/400",
-    description: "Presenting our KOL strategy at the main stage",
-  },
-  {
-    id: "workspace1",
-    title: "Creative Space",
-    image: "/api/placeholder/600/400",
-    description: "Where ideas come to life",
-  },
-  {
-    id: "meeting1",
-    title: "Client Meetings",
-    image: "/api/placeholder/600/400",
-    description: "Discussing strategy with partners",
-  },
-  {
-    id: "celebration1",
-    title: "Launch Party",
-    image: "/api/placeholder/600/400",
-    description: "Celebrating a successful campaign",
-  },
-  {
-    id: "awards1",
-    title: "Industry Awards",
-    image: "/api/placeholder/600/400",
-    description: "Recognized for excellence in marketing",
-  },
-  {
-    id: "workspace2",
-    title: "Collaborative Environment",
-    image: "/api/placeholder/600/400",
-    description: "Our open-plan working space",
+    category: "PUBLIC EVENTS",
+    items: [
+      {
+        id: "token2049-dubai",
+        title: "Token 2049 Dubai",
+        image: "/api/placeholder/600/400",
+        description: "One of the largest crypto events in the Middle East.",
+      },
+      {
+        id: "token2049-singapore",
+        title: "Token 2049 Singapore",
+        image: "/api/placeholder/600/400",
+        description: "The flagship crypto event in the Asia-Pacific region.",
+      },
+      {
+        id: "consensus",
+        title: "Consensus by Coindesk",
+        image: "/api/placeholder/600/400",
+        description:
+          "Annual gathering of the cryptocurrency and blockchain technology world.",
+      },
+      {
+        id: "paris-blockchain",
+        title: "Paris Blockchain Week",
+        image: "/api/placeholder/600/400",
+        description: "Europe's largest blockchain conference.",
+      },
+      {
+        id: "solana-breakpoint",
+        title: "Solana Breakpoint",
+        image: "/api/placeholder/600/400",
+        description: "Annual conference for the Solana ecosystem.",
+      },
+    ],
   },
 ];
 
-const MeetUsSection = () => {
+const UpdatedMeetUsSection = () => {
   const { t } = useLanguage();
-  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{
+    categoryIndex: number;
+    itemIndex: number;
+  } | null>(null);
+
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   // Helper values for the carousel
@@ -67,15 +72,22 @@ const MeetUsSection = () => {
   const ITEM_GAP = 16; // Gap between items
   const ITEM_TOTAL_WIDTH = ITEM_WIDTH + ITEM_GAP; // Total width including gap
 
-  // Clone enough items to ensure smooth looping
-  const tripleItems = [...galleryItems, ...galleryItems, ...galleryItems];
-
-  // Setup infinite scroll effect with translating elements
+  // Setup infinite scroll effect with translating elements for PUBLIC EVENTS only
   useEffect(() => {
-    if (!scrollerRef.current) return;
-
-    const totalOriginalWidth = galleryItems.length * ITEM_TOTAL_WIDTH;
+    // Get the PUBLIC EVENTS category (index 1)
+    const publicEventsCategory = galleryCategories[1];
     const scrollerElement = scrollerRef.current;
+    if (!scrollerElement) return;
+
+    const totalOriginalWidth =
+      publicEventsCategory.items.length * ITEM_TOTAL_WIDTH;
+
+    // Triple the items for smooth looping
+    const tripleItems = [
+      ...publicEventsCategory.items,
+      ...publicEventsCategory.items,
+      ...publicEventsCategory.items,
+    ];
 
     // Callback to check scroll position and "loop" back if needed
     const handleScroll = () => {
@@ -148,7 +160,7 @@ const MeetUsSection = () => {
     scrollerElement.addEventListener("mouseup", handleMouseUp);
     scrollerElement.addEventListener("mousemove", handleMouseMove);
 
-    // Clean up
+    // Return cleanup function
     return () => {
       scrollerElement.removeEventListener("scroll", handleScroll);
       scrollerElement.removeEventListener("mousedown", handleMouseDown);
@@ -157,6 +169,18 @@ const MeetUsSection = () => {
       scrollerElement.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
+
+  // Get the flat item at the given combined index (used for lightbox)
+  const getItemAtCombinedIndex = (categoryIndex: number, itemIndex: number) => {
+    const category = galleryCategories[categoryIndex];
+    // Handle triple repeating items for the carousel
+    const tripleItems = [
+      ...category.items,
+      ...category.items,
+      ...category.items,
+    ];
+    return tripleItems[itemIndex];
+  };
 
   return (
     <section className="py-16 bg-black relative overflow-hidden">
@@ -172,55 +196,109 @@ const MeetUsSection = () => {
             </p>
           </div>
 
-          {/* Infinite scrolling gallery container */}
-          <div
-            className="relative overflow-hidden mx-auto"
-            style={{ maxWidth: "calc(100vw - 40px)" }}
-          >
-            {/* The actual scrollable container */}
-            <div
-              ref={scrollerRef}
-              className="relative pb-6 flex cursor-grab overflow-x-auto scrollbar-none touch-pan-x"
-              style={{
-                WebkitOverflowScrolling: "touch",
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-                width: "100%",
-              }}
-            >
-              {/* Triple the items for true infinite scrolling */}
-              <div className="flex gap-4">
-                {tripleItems.map((item, index) => (
-                  <motion.div
-                    key={`${item.id}-${index}`}
-                    className="flex-shrink-0 w-[300px] overflow-hidden rounded-xl glass-effect"
-                    layoutId={`gallery-${item.id}-${index}`}
-                    onClick={() => setSelectedImage(index)}
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="relative h-[200px] w-full">
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
-                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                        <h3 className="text-lg font-bold kanit-text text-white/90">
-                          {item.title}
-                        </h3>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+          {/* Side Events - Single Card Display */}
+          <div className="mb-16">
+            <h3 className="text-xl md:text-2xl font-bold mb-6 kanit-text text-white/90">
+              {galleryCategories[0].category}
+            </h3>
 
-            {/* Gradient overlays for scroll indication */}
-            <div className="absolute top-0 left-0 h-full w-12 bg-gradient-to-r from-black to-transparent pointer-events-none" />
-            <div className="absolute top-0 right-0 h-full w-12 bg-gradient-to-l from-black to-transparent pointer-events-none" />
+            <div className="flex justify-center">
+              {galleryCategories[0].items.map((item, index) => (
+                <motion.div
+                  key={`side-${item.id}`}
+                  className="w-full max-w-xl overflow-hidden rounded-xl glass-effect"
+                  layoutId={`gallery-0-${item.id}-0`}
+                  onClick={() =>
+                    setSelectedImage({ categoryIndex: 0, itemIndex: 0 })
+                  }
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="relative h-[300px] w-full">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                      <h3 className="text-2xl font-bold kanit-text text-white/90">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-white/80">{item.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Public Events - Carousel */}
+          <div className="mb-16">
+            <h3 className="text-xl md:text-2xl font-bold mb-6 kanit-text text-white/90">
+              {galleryCategories[1].category}
+            </h3>
+
+            {/* Infinite scrolling gallery container */}
+            <div
+              className="relative overflow-hidden mx-auto"
+              style={{ maxWidth: "calc(100vw - 40px)" }}
+            >
+              {/* The actual scrollable container */}
+              <div
+                ref={scrollerRef}
+                className="relative pb-6 flex cursor-grab overflow-x-auto scrollbar-none touch-pan-x"
+                style={{
+                  WebkitOverflowScrolling: "touch",
+                  scrollbarWidth: "none",
+                  msOverflowStyle: "none",
+                  width: "100%",
+                }}
+              >
+                {/* Triple the items for true infinite scrolling */}
+                <div className="flex gap-4">
+                  {[
+                    ...galleryCategories[1].items,
+                    ...galleryCategories[1].items,
+                    ...galleryCategories[1].items,
+                  ].map((item, itemIndex) => (
+                    <motion.div
+                      key={`${item.id}-${itemIndex}`}
+                      className="flex-shrink-0 w-[300px] overflow-hidden rounded-xl glass-effect"
+                      layoutId={`gallery-1-${item.id}-${itemIndex}`}
+                      onClick={() =>
+                        setSelectedImage({
+                          categoryIndex: 1,
+                          itemIndex: itemIndex,
+                        })
+                      }
+                      whileHover={{ scale: 1.02, y: -5 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="relative h-[200px] w-full">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
+                        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                          <h3 className="text-lg font-bold kanit-text text-white/90">
+                            {item.title}
+                          </h3>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Gradient overlays for scroll indication */}
+              <div className="absolute top-0 left-0 h-full w-12 bg-gradient-to-r from-black to-transparent pointer-events-none" />
+              <div className="absolute top-0 right-0 h-full w-12 bg-gradient-to-l from-black to-transparent pointer-events-none" />
+            </div>
           </div>
 
           {/* Lightbox for expanded view */}
@@ -243,38 +321,65 @@ const MeetUsSection = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <motion.div
-                    layoutId={`gallery-${tripleItems[selectedImage].id}-${selectedImage}`}
-                    className="relative max-w-4xl w-full bg-black overflow-hidden rounded-xl shadow-2xl"
-                  >
-                    <div className="relative aspect-video">
-                      <Image
-                        src={tripleItems[selectedImage].image}
-                        alt={tripleItems[selectedImage].title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-2xl font-bold mb-2 kanit-text text-white/90">
-                        {tripleItems[selectedImage].title}
-                      </h3>
-                      <p className="text-white/80">
-                        {tripleItems[selectedImage].description}
-                      </p>
-                    </div>
-
-                    {/* Close button */}
-                    <button
-                      className="absolute top-4 right-4 bg-black/50 rounded-full p-2 text-white/90 hover:bg-black/70 transition-colors"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedImage(null);
-                      }}
+                  {selectedImage && (
+                    <motion.div
+                      layoutId={`gallery-${selectedImage.categoryIndex}-${
+                        getItemAtCombinedIndex(
+                          selectedImage.categoryIndex,
+                          selectedImage.itemIndex
+                        ).id
+                      }-${selectedImage.itemIndex}`}
+                      className="relative max-w-4xl w-full bg-black overflow-hidden rounded-xl shadow-2xl"
                     >
-                      <X size={24} />
-                    </button>
-                  </motion.div>
+                      <div className="relative aspect-video">
+                        <Image
+                          src={
+                            getItemAtCombinedIndex(
+                              selectedImage.categoryIndex,
+                              selectedImage.itemIndex
+                            ).image
+                          }
+                          alt={
+                            getItemAtCombinedIndex(
+                              selectedImage.categoryIndex,
+                              selectedImage.itemIndex
+                            ).title
+                          }
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-2xl font-bold mb-2 kanit-text text-white/90">
+                          {
+                            getItemAtCombinedIndex(
+                              selectedImage.categoryIndex,
+                              selectedImage.itemIndex
+                            ).title
+                          }
+                        </h3>
+                        <p className="text-white/80">
+                          {
+                            getItemAtCombinedIndex(
+                              selectedImage.categoryIndex,
+                              selectedImage.itemIndex
+                            ).description
+                          }
+                        </p>
+                      </div>
+
+                      {/* Close button */}
+                      <button
+                        className="absolute top-4 right-4 bg-black/50 rounded-full p-2 text-white/90 hover:bg-black/70 transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedImage(null);
+                        }}
+                      >
+                        <X size={24} />
+                      </button>
+                    </motion.div>
+                  )}
                 </motion.div>
               </>
             )}
@@ -285,4 +390,4 @@ const MeetUsSection = () => {
   );
 };
 
-export default MeetUsSection;
+export default UpdatedMeetUsSection;
