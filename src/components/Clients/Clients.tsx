@@ -55,7 +55,7 @@ const PureCssClientsSlider = () => {
   const duplicatedLogos1 = [...clientLogos, ...clientLogos];
 
   return (
-    <section className="py-16 bg-black relative overflow-hidden">
+    <section className="py-16 bg-black relative overflow-hidden pointer-events-none">
       <div className="mb-12 text-center">
         <h2 className="text-2xl md:text-3xl font-bold kanit-text text-white/90">
           {t("clientsTitle")}
@@ -73,7 +73,7 @@ const PureCssClientsSlider = () => {
                   "transition-all duration-300",
                   "h-28 w-52 md:h-28 md:w-52", // Consistent size across devices
                   "glass-effect p-6 rounded-lg",
-                  "flex items-center justify-center"
+                  "flex items-center justify-center pointer-events-none"
                 )}
               >
                 <ClientLogo client={client} />
