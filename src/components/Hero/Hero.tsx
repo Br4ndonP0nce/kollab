@@ -1,26 +1,15 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/LanguageContext";
+import Image from "next/image";
 
 const HeroSection = () => {
   const { t } = useLanguage();
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-
-  // Handle video playback
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch((error) => {
-        console.error("Error playing video:", error);
-        setIsPlaying(false);
-      });
-    }
-  }, []);
 
   // Animation variants
   const containerVariants = {
@@ -48,39 +37,17 @@ const HeroSection = () => {
       id="home"
       className="min-h-screen flex items-center justify-center relative py-20 md:py-0"
     >
-      {/* Video Background */}
+      {/* Image Background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-black/75 z-10" />
-        <video
-          ref={videoRef}
-          className="w-full h-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src="/Video/bg-main.mp4" type="video/mp4" />
-        </video>
+        <div className="absolute inset-0 z-10" />
+        <Image
+          src="/Image/main-bg.jpg"
+          alt="Background"
+          fill
+          className="object-cover"
+          priority
+        />
       </div>
-
-      {/* Animated gradient circles - keep these for additional visual effect */}
-      <motion.div
-        className="absolute top-1/4 right-[15%] w-64 h-64 rounded-full bg-white/5 blur-3xl z-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0.1, 0.3, 0.1], scale: [0.8, 1.1, 0.8] }}
-        transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 left-[10%] w-96 h-96 rounded-full bg-white/5 blur-3xl z-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.2, 1] }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          repeatType: "reverse",
-          delay: 1,
-        }}
-      />
 
       <div className="container mx-auto px-4 md:px-6 z-20 relative">
         <motion.div
@@ -97,7 +64,7 @@ const HeroSection = () => {
 
           <motion.h1
             variants={itemVariants}
-            className="text-5xl md:text-4xl font-bold tracking-tight mb-6 kanit-text text-balance text-white/80"
+            className="text-5xl md:text-7xl font-bold tracking-tight mb-6 kanit-text text-balance text-white/80"
           >
             {t("heroIntro")} <br />
             <span className="text-white font-semibold">{t("heroIntro2")}</span>
@@ -111,12 +78,12 @@ const HeroSection = () => {
               href="#contact"
               className={cn(
                 "inline-flex items-center justify-center",
-                "bg-white text-black-foreground hover:bg-white/90 transition-colors",
+                "bg-primary text-primary-foreground hover:bg-primary/90",
                 "rounded-full px-8 py-4 text-lg font-medium",
-                "transition-all duration-300 kanit-text"
+                "transition-all duration-300 hover-lift"
               )}
             >
-              {t("workWithUs")} <ArrowRight className="ml-2 " size={18} />
+              {t("workWithUs")} <ArrowRight className="ml-2" size={18} />
             </Link>
 
             <Link
