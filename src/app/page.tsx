@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import HeroSection from "@/components/Hero/Hero";
 import ClientsSlider from "@/components/Clients/Clients";
@@ -9,7 +10,19 @@ import ContactSection from "@/components/Contact/Contact";
 import MeetUsSection from "@/components/MeetUs/MeetUs";
 import StackedHardDataSection from "@/components/HardData/HardDatav2";
 import JsonLd from "@/components/JsonLd";
+import Preloader from "@/components/Preloader";
+import { useEffect, useState } from "react";
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading assets - can be replaced with actual asset loading logic
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, []);
   const organizationData = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -21,16 +34,25 @@ export default function Home() {
   };
   return (
     <>
-      <JsonLd data={organizationData} />
-      <HeroSection />
-      <ClientsSlider />
-      <MeetUsSection />
+      {loading && <Preloader />}
 
-      <StackedHardDataSection />
-      <SolutionSection />
-      <ImprovedKolsSection />
-      <TeamSection />
-      <ContactSection />
+      {/* All Sections */}
+      <div
+        className={
+          loading ? "opacity-0" : "opacity-100 transition-opacity duration-500"
+        }
+      >
+        <JsonLd data={organizationData} />
+        <HeroSection />
+        <ClientsSlider />
+        <MeetUsSection />
+
+        <StackedHardDataSection />
+        <SolutionSection />
+        <ImprovedKolsSection />
+        <TeamSection />
+        <ContactSection />
+      </div>
     </>
   );
 }
