@@ -32,7 +32,7 @@ const galleryCategories: GalleryCategory[] = [
         id: "side-events",
         title: "Side Events",
         image: "/api/placeholder/600/400",
-        video: "/Video/sideVideo.mp4", // Add your video path here
+        video: "/Video/sideEventCompressed.mp4", // Add your video path here
         description:
           "We organize exclusive side events at major blockchain conferences.",
       },
@@ -294,11 +294,9 @@ const UpdatedMeetUsSection = () => {
                       <h3 className="text-2xl font-bold kanit-text text-white/90">
                         {item.title}
                       </h3>
-                      <p className="mt-2 text-white/80">{item.description}</p>
+
                       {hasVideo(item) && (
-                        <p className="mt-2 text-sm text-white/60">
-                          Click to expand and enable audio
-                        </p>
+                        <p className="mt-2 text-sm text-white/60"></p>
                       )}
                     </div>
                   </div>
