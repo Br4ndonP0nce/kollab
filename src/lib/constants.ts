@@ -208,7 +208,7 @@ export const teamMembers = [
 export const socialLinks = [
   { platform: 'Twitter', url: 'https://twitter.com/Kollabsagency', icon: 'Twitter' },
   { platform: 'LinkedIn', url: 'https://linkedin.com/company/Kollabsagency', icon: 'Linkedin' },
-  { platform: 'Telegram', url: 'https://t.me/Kollabsagency', icon: 'Send' },
+  { platform: 'Telegram', url: 'https://t.me/josebullish', icon: 'Send' },
   { platform: 'Discord', url: 'https://discord.gg/Kollabsagency', icon: 'MessageSquare' },
 ];
 

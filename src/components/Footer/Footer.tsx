@@ -22,7 +22,7 @@ const Footer = () => {
   const socialLinks = [
     {
       platform: "Telegram",
-      url: "https://t.me/Kollabsagency",
+      url: "https://t.me/josebullish",
       icon: <Send className="h-5 w-5" />,
     },
     {
