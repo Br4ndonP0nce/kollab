@@ -6,7 +6,9 @@ export const translations = {
     //Hero Section
     slogan1: "Connect. Amplify. ",
     slogan2: " Dominate.",
-    heroIntro: "Where crypto meets influence",
+    heroIntro: "Where crypto ",
+    meets: "meets ",
+    influence: "influence",
     heroIntro2: " real voices real results",
     workWithUs: "Work With Us",
     caseStudies: "Case Studies",
@@ -25,7 +27,8 @@ export const translations = {
     //Hard Data section
     hardDataHeader: "VERIFIED GROWTH",
     hardDataTitle: "RESULTS THAT ",
-    hardDataTitle2: "SPEAK VOLUMES",
+    hardDataTitle2: "SPEAK ",
+    hardDataTitle3: "VOLUMES",
     hardDataDescription: `Our strategies don't just promise growth — 
         they deliver tangible, market-moving outcomes that transform projects.`,
     dataParagraph:

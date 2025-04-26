@@ -66,7 +66,9 @@ const HeroSection = () => {
             variants={itemVariants}
             className="text-4xl md:text-5xl font-bold tracking-tight mb-6 kanit-text text-balance text-white/80"
           >
-            {t("heroIntro")} <br />
+            {t("heroIntro")}{" "}
+            <span className=" text-[#c19a6b]">{t("meets")}</span>{" "}
+            {t("influence")} <br />
             <span className="text-white font-semibold">{t("heroIntro2")}</span>
           </motion.h1>
 

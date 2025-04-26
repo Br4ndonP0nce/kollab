@@ -190,7 +190,8 @@ const StackedHardDataSection = () => {
             </span>
             <h2 className="text-4xl md:text-6xl font-bold mb-6 kanit-text text-white">
               {t("hardDataTitle")}{" "}
-              <span className="text-white/80">{t("hardDataTitle2")}</span>
+              <span className=" text-[#c19a6b]">{t("hardDataTitle2")}</span>
+              {t("hardDataTitle3")}
             </h2>
             <p className="text-lg text-white/70 max-w-3xl mx-auto">
               {t("hardDataDescription")}

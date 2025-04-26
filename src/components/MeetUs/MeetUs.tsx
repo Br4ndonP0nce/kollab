@@ -254,7 +254,7 @@ const UpdatedMeetUsSection = () => {
 
           {/* Side Events - Video Card Display */}
           <div className="mb-16">
-            <h3 className="text-xl md:text-2xl font-bold mb-6 kanit-text text-white/90">
+            <h3 className="text-xl md:text-2xl font-bold mb-6 kanit-text text-[#c19a6b]">
               {galleryCategories[0].category}
             </h3>
 
@@ -309,7 +309,7 @@ const UpdatedMeetUsSection = () => {
 
           {/* Public Events - Carousel */}
           <div className="mb-16">
-            <h3 className="text-xl md:text-2xl font-bold mb-6 kanit-text text-white/90">
+            <h3 className="text-xl md:text-2xl font-bold mb-6 kanit-text text-[#c19a6b]">
               {galleryCategories[1].category}
             </h3>
 
