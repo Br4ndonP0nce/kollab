@@ -32,7 +32,7 @@ const galleryCategories: GalleryCategory[] = [
         id: "side-events",
         title: "Side Events",
         image: "/api/placeholder/600/400",
-        video: "/Video/Sideevent.webm", // Add your video path here
+        video: "/Video/sideEvent.mp4", // Add your video path here
         description:
           "We organize exclusive side events at major blockchain conferences.",
       },
