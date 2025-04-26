@@ -88,7 +88,7 @@ const campaignData = [
 
       {
         label: "TOTAL KOLLABS VIEWS",
-        value: 2.6,
+        value: 2.9,
         prefix: "",
         suffix: "M",
         icon: <Zap className="h-5 w-5 text-white" />,
