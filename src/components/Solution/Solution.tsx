@@ -192,9 +192,6 @@ const SolutionSection = () => {
                 {t("solutionButton")}
               </a>
             </div>
-            <p className="text-white/60 mt-6 max-w-lg mx-auto">
-              {t("solutionFooter")}
-            </p>
           </motion.div>
         </div>
       </div>

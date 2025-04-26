@@ -88,9 +88,6 @@ const ContactSection = () => {
             <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 kanit-text  text-white/90">
               {t("contactTitle")}
             </h2>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              {t("contactDescription")}
-            </p>
           </motion.div>
 
           {/* Two-column layout for form and contact info */}

@@ -80,7 +80,7 @@ export const translations = {
     contactTitle: "Ready to Elevate Your Project?",
     contactDescription: `Contact us today to discuss how our network of KOLs and influencers can drive exceptional growth for your project.`,
     modalTitle: "Connect with Us",
-    Follow: "Follow Us",
+    Follow: "Send us a message",
     formTitle: "Send us a message",
     formName: "Name",
     formEmail: "Email",
@@ -92,9 +92,10 @@ export const translations = {
     //solutionSection
     botify: `Kollabs stepped in as Botify’s strategic growth partner, handpicking and onboarding key KOLs for their campaign.
 
-Through targeted exposure, Botify’s market cap surged from $18M to $61M — a 338% increase`,
-    altura:
-      "Altura partnered with our team to execute a hyper-targeted Tier 1 KOL campaign. We strategically selected 6 premium influencers with highly engaged communities in the NFT and gaming sectors. The coordinated content rollout drove incredible momentum, resulting in a 126% price increase in just 10 days and 2.6M views across platforms.",
+Through targeted exposure, Botify’s market cap surged from $18M to $61M — a 238% increase`,
+    altura: `Altura partnered with our team to execute a targeted Tier 1 KOL campaign. We strategically selected KOLs 
+
+The coordinated content rollout drove incredible momentum, resulting in a 126 million added in market cap.`,
     lemoncash: `Kollabs stepped in as Lemon Cash's strategic advisor for their regional expansion. We handpicked and onboarded regional KOLs to target specific demographics and communities. 
 
 Through this systematic approach, we were able to drive 150,000 new users in just two weeks.
@@ -212,7 +213,7 @@ The campaign's momentum continued, helping Lemon Cash grow to over 400,000 activ
     contactTitle: "Ready to Elevate Your Project?",
     contactDescription: `Contact us today to discuss how our network of KOLs and influencers can drive exceptional growth for your project.`,
     modalTitle: "Connect with Us",
-    Follow: "Follow Us",
+    Follow: "Send us a message",
     formTitle: "Send us a message",
     formName: "Name",
     formEmail: "Email",
@@ -224,9 +225,10 @@ The campaign's momentum continued, helping Lemon Cash grow to over 400,000 activ
     //solutionSection
     botify: `Kollabs stepped in as Botify’s strategic growth partner, handpicking and onboarding key KOLs for their campaign.
 
-Through targeted exposure, Botify’s market cap surged from $18M to $61M — a 338% increase`,
-    altura:
-      "Altura partnered with our team to execute a hyper-targeted Tier 1 KOL campaign. We strategically selected 6 premium influencers with highly engaged communities in the NFT and gaming sectors. The coordinated content rollout drove incredible momentum, resulting in a 126% price increase in just 10 days and 2.6M views across platforms.",
+Through targeted exposure, Botify’s market cap surged from $18M to $61M — a 238% increase`,
+    altura: `Altura partnered with our team to execute a targeted Tier 1 KOL campaign. We strategically selected KOLs 
+
+The coordinated content rollout drove incredible momentum, resulting in a 126 million added in market cap.`,
     lemoncash: `Kollabs stepped in as Lemon Cash's strategic advisor for their regional expansion. We handpicked and onboarded regional KOLs to target specific demographics and communities. 
 
 Through this systematic approach, we were able to drive 150,000 new users in just two weeks.
@@ -348,7 +350,7 @@ The campaign's momentum continued, helping Lemon Cash grow to over 400,000 activ
 
     //solutionSection
     botify:
-      "Kollabs se convirtió en el socio estratégico de crecimiento de Botify, seleccionando y reclutando KOLs clave para su campaña. A través de una exposición dirigida, la capitalización de mercado de Botify aumentó de $18M a $61M, un aumento del 338%.",
+      "Kollabs se convirtió en el socio estratégico de crecimiento de Botify, seleccionando y reclutando KOLs clave para su campaña. A través de una exposición dirigida, la capitalización de mercado de Botify aumentó de $18M a $61M, un aumento del 238%.",
     altura:
       "Altura se asoció con nuestro equipo para ejecutar una campaña hiper-dirigida de KOLs de nivel 1. Seleccionamos estratégicamente a 6 influencers premium con comunidades altamente comprometidas en los sectores de NFT y gaming. El lanzamiento coordinado de contenido impulsó un increíble impulso, resultando en un aumento del 126% en el precio en solo 10 días y 2.6M de vistas en todas las plataformas.",
     lemoncash: `Kollabs se convirtió en el asesor estratégico de Lemon Cash para su expansión regional. Seleccionamos y reclutamos KOLs regionales para dirigirse a demografías y comunidades específicas. A través de este enfoque sistemático, logramos impulsar 150,000 nuevos usuarios en solo dos semanas. La campaña continuó creciendo, ayudando a Lemon Cash a alcanzar más de 400,000 usuarios activos en la región.`,

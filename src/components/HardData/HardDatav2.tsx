@@ -45,8 +45,8 @@ const campaignData = [
       },
       {
         label: "TOTAL KOLLAB VIEWS",
-        value: 1.2,
-        prefix: "",
+        value: 28,
+        prefix: "+",
         suffix: "M",
         icon: <Zap className="h-5 w-5 text-white" />,
         color: "bg-white/10",
@@ -61,16 +61,33 @@ const campaignData = [
     narrative: "altura",
     metrics: [
       {
-        label: "MARKETCAP VALUE",
+        label: "MARKETCAP ADDED",
         value: 126,
-        prefix: "",
+        prefix: "+",
         suffix: "M",
         icon: <TrendingUp className="h-5 w-5 text-white" />,
         color: "bg-white/10",
         calculation: "100M → 226M",
       },
       {
-        label: "TOTAL VIEWS",
+        label: "PRICE INCREASE",
+        value: 2,
+        prefix: "",
+        suffix: ".2x",
+        icon: <Zap className="h-5 w-5 text-white" />,
+        color: "bg-white/10",
+      },
+      {
+        label: "MARKETCAP VALUE",
+        value: 126,
+        prefix: "",
+        suffix: "%",
+        icon: <Zap className="h-5 w-5 text-white" />,
+        color: "bg-white/10",
+      },
+
+      {
+        label: "TOTAL KOLLABS VIEWS",
         value: 2.6,
         prefix: "",
         suffix: "M",
@@ -104,7 +121,7 @@ const campaignData = [
       },
       {
         label: "MARKETCAP VALUE",
-        value: 338,
+        value: 238,
         prefix: "+",
         suffix: "%",
         icon: <BarChart3 className="h-5 w-5 text-white" />,
