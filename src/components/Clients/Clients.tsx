@@ -56,14 +56,42 @@ const SimpleDraggableCarousel = () => {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
+
+  // Animation state refs
   const autoScrollRef = useRef<number | null>(null);
+  const fallbackIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const userInteractingRef = useRef(false);
+  const isMobileRef = useRef(false);
+  const lastTouchTimeRef = useRef(0);
 
   // Create a multiplied array for more content
   const multipliedLogos = [...clientLogos, ...clientLogos, ...clientLogos];
 
-  // Handle auto-scrolling
+  // Check if device is mobile
+  useEffect(() => {
+    // Detect if device is mobile
+    isMobileRef.current =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+
+    // Monitor visibility changes to restart animation when page becomes visible
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        startScrolling();
+      } else {
+        stopScrolling();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  // Core scrolling functionality
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
@@ -71,25 +99,11 @@ const SimpleDraggableCarousel = () => {
     // Set initial scroll position to middle of content to enable infinite scroll in both directions
     carousel.scrollLeft = carousel.scrollWidth / 3;
 
-    // Auto-scroll function
-    const autoScroll = () => {
-      if (!carousel || userInteractingRef.current || !autoScrollEnabled) return;
+    // Function to check looping (infinite scroll effect)
+    const handleLoopCheck = () => {
+      if (!carousel) return;
 
-      // Scroll by a small amount each frame
-      carousel.scrollLeft += 0.5;
-
-      // Request next frame
-      autoScrollRef.current = requestAnimationFrame(autoScroll);
-    };
-
-    // Start auto-scrolling
-    if (autoScrollEnabled) {
-      autoScrollRef.current = requestAnimationFrame(autoScroll);
-    }
-
-    // Check if we need to loop back
-    const handleScroll = () => {
-      const { scrollLeft, scrollWidth, clientWidth } = carousel;
+      const { scrollLeft, scrollWidth } = carousel;
       const oneThird = scrollWidth / 3;
 
       // If scrolled to the end of first set, jump to the middle set
@@ -102,62 +116,121 @@ const SimpleDraggableCarousel = () => {
       }
     };
 
+    // Handle scroll events
+    const handleScroll = () => {
+      handleLoopCheck();
+      // Reset last touch time on manual scroll to prevent immediate auto-scroll restart
+      if (userInteractingRef.current) {
+        lastTouchTimeRef.current = Date.now();
+      }
+    };
+
     carousel.addEventListener("scroll", handleScroll);
 
-    // Cleanup
+    // Start scrolling immediately
+    startScrolling();
+
+    // Cleanup function
     return () => {
-      if (autoScrollRef.current) {
-        cancelAnimationFrame(autoScrollRef.current);
-      }
+      stopScrolling();
       carousel.removeEventListener("scroll", handleScroll);
     };
-  }, [autoScrollEnabled]);
+  }, []);
 
-  // Mouse event handlers
-  const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (!carouselRef.current) return;
+  // Helper function to start scrolling with appropriate method for device
+  const startScrolling = () => {
+    stopScrolling(); // Clear any existing animation
 
-    // Stop auto-scrolling when user starts interacting
-    userInteractingRef.current = true;
+    if (userInteractingRef.current) return;
+
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    // Different approach based on device type
+    if (isMobileRef.current) {
+      // For mobile: use both requestAnimationFrame and setInterval as fallback
+      const scrollAmount = 0.5;
+
+      // Primary method using requestAnimationFrame
+      const animateScroll = () => {
+        // Only scroll if user isn't interacting and enough time has passed since last touch
+        const timeSinceLastTouch = Date.now() - lastTouchTimeRef.current;
+        if (!userInteractingRef.current && timeSinceLastTouch > 500) {
+          if (carousel) carousel.scrollLeft += scrollAmount;
+        }
+        autoScrollRef.current = requestAnimationFrame(animateScroll);
+      };
+
+      // Fallback method using setInterval (more reliable on some mobile browsers)
+      fallbackIntervalRef.current = setInterval(() => {
+        const timeSinceLastTouch = Date.now() - lastTouchTimeRef.current;
+        if (!userInteractingRef.current && timeSinceLastTouch > 500) {
+          if (carousel) carousel.scrollLeft += scrollAmount;
+        }
+      }, 16); // ~60fps
+
+      autoScrollRef.current = requestAnimationFrame(animateScroll);
+    } else {
+      // For desktop: just use requestAnimationFrame
+      const animateScroll = () => {
+        if (!userInteractingRef.current && carousel) {
+          carousel.scrollLeft += 0.5;
+        }
+        autoScrollRef.current = requestAnimationFrame(animateScroll);
+      };
+
+      autoScrollRef.current = requestAnimationFrame(animateScroll);
+    }
+  };
+
+  // Helper function to stop all scrolling animations
+  const stopScrolling = () => {
     if (autoScrollRef.current) {
       cancelAnimationFrame(autoScrollRef.current);
       autoScrollRef.current = null;
     }
 
+    if (fallbackIntervalRef.current) {
+      clearInterval(fallbackIntervalRef.current);
+      fallbackIntervalRef.current = null;
+    }
+  };
+
+  // Mouse event handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    // Stop auto-scrolling and mark as interacting
+    userInteractingRef.current = true;
+    stopScrolling();
+
+    // Record drag start position
     setIsMouseDown(true);
-    setStartX(e.pageX - carouselRef.current.offsetLeft);
-    setScrollLeft(carouselRef.current.scrollLeft);
-    carouselRef.current.style.cursor = "grabbing";
-    carouselRef.current.style.scrollBehavior = "auto";
+    setStartX(e.pageX - carousel.offsetLeft);
+    setScrollLeft(carousel.scrollLeft);
+    carousel.style.cursor = "grabbing";
+    carousel.style.scrollBehavior = "auto";
   };
 
   const handleMouseUp = () => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    // Reset state
     setIsMouseDown(false);
-    if (carouselRef.current) {
-      carouselRef.current.style.cursor = "grab";
-      carouselRef.current.style.scrollBehavior = "smooth";
-    }
+    carousel.style.cursor = "grab";
+    carousel.style.scrollBehavior = "smooth";
 
-    // Resume auto-scrolling after user interaction
-    userInteractingRef.current = false;
+    // Record when interaction ended
+    lastTouchTimeRef.current = Date.now();
 
-    // Resume auto-scrolling immediately
-    if (autoScrollEnabled && !autoScrollRef.current) {
-      const autoScroll = () => {
-        if (
-          !carouselRef.current ||
-          userInteractingRef.current ||
-          !autoScrollEnabled
-        )
-          return;
-
-        carouselRef.current.scrollLeft += 0.5;
-        autoScrollRef.current = requestAnimationFrame(autoScroll);
-      };
-
-      autoScrollRef.current = requestAnimationFrame(autoScroll);
-    }
+    // Resume auto-scrolling after a short delay
+    setTimeout(() => {
+      userInteractingRef.current = false;
+      startScrolling();
+    }, 500);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -169,21 +242,38 @@ const SimpleDraggableCarousel = () => {
     carouselRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  // Touch event handlers
+  // Touch event handlers with passive: false to work better on mobile
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (!carouselRef.current) return;
+    const carousel = carouselRef.current;
+    if (!carousel) return;
 
-    // Stop auto-scrolling when user starts touching
+    // Stop auto-scrolling and mark as interacting
     userInteractingRef.current = true;
-    if (autoScrollRef.current) {
-      cancelAnimationFrame(autoScrollRef.current);
-      autoScrollRef.current = null;
-    }
+    stopScrolling();
 
+    // Record drag start position
     setIsMouseDown(true);
-    setStartX(e.touches[0].pageX - carouselRef.current.offsetLeft);
-    setScrollLeft(carouselRef.current.scrollLeft);
-    carouselRef.current.style.scrollBehavior = "auto";
+    setStartX(e.touches[0].pageX - carousel.offsetLeft);
+    setScrollLeft(carousel.scrollLeft);
+    carousel.style.scrollBehavior = "auto";
+  };
+
+  const handleTouchEnd = () => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    // Reset state
+    setIsMouseDown(false);
+    carousel.style.scrollBehavior = "smooth";
+
+    // Record when interaction ended
+    lastTouchTimeRef.current = Date.now();
+
+    // Resume auto-scrolling after a short delay
+    setTimeout(() => {
+      userInteractingRef.current = false;
+      startScrolling();
+    }, 500);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -192,6 +282,11 @@ const SimpleDraggableCarousel = () => {
     const x = e.touches[0].pageX - carouselRef.current.offsetLeft;
     const walk = (x - startX) * 2;
     carouselRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  // Handle touch cancel event (important for mobile)
+  const handleTouchCancel = () => {
+    handleTouchEnd(); // Use same logic as touch end
   };
 
   return (
@@ -206,7 +301,7 @@ const SimpleDraggableCarousel = () => {
         className="relative mx-auto"
         style={{ maxWidth: "calc(100vw - 40px)" }}
       >
-        {/* Simple draggable carousel */}
+        {/* Mobile-optimized carousel */}
         <div
           ref={carouselRef}
           className="pb-6 flex overflow-x-auto cursor-grab select-none scrollbar-none"
@@ -214,13 +309,15 @@ const SimpleDraggableCarousel = () => {
             WebkitOverflowScrolling: "touch",
             scrollbarWidth: "none",
             msOverflowStyle: "none",
+            touchAction: "pan-x",
           }}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
           onMouseMove={handleMouseMove}
           onTouchStart={handleTouchStart}
-          onTouchEnd={handleMouseUp}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchCancel}
           onTouchMove={handleTouchMove}
         >
           <div className="flex">
