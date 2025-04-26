@@ -66,7 +66,7 @@ const HeroSection = () => {
             variants={itemVariants}
             className="text-4xl md:text-5xl font-bold tracking-tight mb-6 kanit-text text-balance text-white/80"
           >
-            Where crypto <span className="text-[#c19a6b]">meets</span> meets
+            Where crypto <span className="text-[#c19a6b]">meets </span>
             influence <br />
             real voices real results
           </motion.h1>

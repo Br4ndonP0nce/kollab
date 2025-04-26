@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/LanguageContext";
@@ -32,6 +32,7 @@ const ClientLogo = ({ client }: { client: { name: string; logo: string } }) => {
           src={client.logo}
           alt={client.name}
           className="w-auto h-auto max-w-full max-h-full object-contain"
+          draggable="false"
         />
       </div>
     );
@@ -44,62 +45,207 @@ const ClientLogo = ({ client }: { client: { name: string; logo: string } }) => {
       width={160}
       height={80}
       className="object-contain"
+      draggable="false"
     />
   );
 };
 
-const BalancedClientsSlider = () => {
+const SimpleDraggableCarousel = () => {
   const { t } = useLanguage();
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
+  const autoScrollRef = useRef<number | null>(null);
+  const userInteractingRef = useRef(false);
 
-  // Create a 6x multiplied array - enough to make jumps very infrequent
-  // but not so many that we slow down page performance
-  const multiplyFactor = 6;
-  const extendedLogoArray = Array(multiplyFactor).fill(clientLogos).flat();
+  // Create a multiplied array for more content
+  const multipliedLogos = [...clientLogos, ...clientLogos, ...clientLogos];
+
+  // Handle auto-scrolling
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    // Set initial scroll position to middle of content to enable infinite scroll in both directions
+    carousel.scrollLeft = carousel.scrollWidth / 3;
+
+    // Auto-scroll function
+    const autoScroll = () => {
+      if (!carousel || userInteractingRef.current || !autoScrollEnabled) return;
+
+      // Scroll by a small amount each frame
+      carousel.scrollLeft += 0.5;
+
+      // Request next frame
+      autoScrollRef.current = requestAnimationFrame(autoScroll);
+    };
+
+    // Start auto-scrolling
+    if (autoScrollEnabled) {
+      autoScrollRef.current = requestAnimationFrame(autoScroll);
+    }
+
+    // Check if we need to loop back
+    const handleScroll = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = carousel;
+      const oneThird = scrollWidth / 3;
+
+      // If scrolled to the end of first set, jump to the middle set
+      if (scrollLeft < 50) {
+        carousel.scrollLeft = oneThird + scrollLeft;
+      }
+      // If scrolled to the beginning of third set, jump to the middle set
+      else if (scrollLeft > oneThird * 2 - 50) {
+        carousel.scrollLeft = oneThird + (scrollLeft - oneThird * 2);
+      }
+    };
+
+    carousel.addEventListener("scroll", handleScroll);
+
+    // Cleanup
+    return () => {
+      if (autoScrollRef.current) {
+        cancelAnimationFrame(autoScrollRef.current);
+      }
+      carousel.removeEventListener("scroll", handleScroll);
+    };
+  }, [autoScrollEnabled]);
+
+  // Mouse event handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!carouselRef.current) return;
+
+    // Stop auto-scrolling when user starts interacting
+    userInteractingRef.current = true;
+    if (autoScrollRef.current) {
+      cancelAnimationFrame(autoScrollRef.current);
+      autoScrollRef.current = null;
+    }
+
+    setIsMouseDown(true);
+    setStartX(e.pageX - carouselRef.current.offsetLeft);
+    setScrollLeft(carouselRef.current.scrollLeft);
+    carouselRef.current.style.cursor = "grabbing";
+    carouselRef.current.style.scrollBehavior = "auto";
+  };
+
+  const handleMouseUp = () => {
+    setIsMouseDown(false);
+    if (carouselRef.current) {
+      carouselRef.current.style.cursor = "grab";
+      carouselRef.current.style.scrollBehavior = "smooth";
+    }
+
+    // Resume auto-scrolling after user interaction
+    userInteractingRef.current = false;
+
+    // Resume auto-scrolling immediately
+    if (autoScrollEnabled && !autoScrollRef.current) {
+      const autoScroll = () => {
+        if (
+          !carouselRef.current ||
+          userInteractingRef.current ||
+          !autoScrollEnabled
+        )
+          return;
+
+        carouselRef.current.scrollLeft += 0.5;
+        autoScrollRef.current = requestAnimationFrame(autoScroll);
+      };
+
+      autoScrollRef.current = requestAnimationFrame(autoScroll);
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDown || !carouselRef.current) return;
+    e.preventDefault();
+
+    const x = e.pageX - carouselRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed multiplier
+    carouselRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  // Touch event handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!carouselRef.current) return;
+
+    // Stop auto-scrolling when user starts touching
+    userInteractingRef.current = true;
+    if (autoScrollRef.current) {
+      cancelAnimationFrame(autoScrollRef.current);
+      autoScrollRef.current = null;
+    }
+
+    setIsMouseDown(true);
+    setStartX(e.touches[0].pageX - carouselRef.current.offsetLeft);
+    setScrollLeft(carouselRef.current.scrollLeft);
+    carouselRef.current.style.scrollBehavior = "auto";
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isMouseDown || !carouselRef.current) return;
+
+    const x = e.touches[0].pageX - carouselRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    carouselRef.current.scrollLeft = scrollLeft - walk;
+  };
 
   return (
-    <section className="py-16 bg-black relative overflow-hidden pointer-events-none">
+    <section className="py-16 bg-black relative overflow-hidden">
       <div className="mb-12 text-center">
         <h2 className="text-2xl md:text-3xl font-bold kanit-text text-white/90">
           {t("clientsTitle")}
         </h2>
       </div>
 
-      {/* Balanced carousel */}
-      <div className="infinite-carousel mb-12">
-        <div className="balanced-track">
-          {extendedLogoArray.map((client, index) => (
-            <div key={`client-${index}`} className="slide mx-8">
-              <div
-                className={cn(
-                  "glass-effect p-6 rounded-lg",
-                  "h-28 w-52 md:h-28 md:w-52", // Consistent size across devices
-                  "flex items-center justify-center pointer-events-none"
-                )}
-              >
-                <ClientLogo client={client} />
+      <div
+        className="relative mx-auto"
+        style={{ maxWidth: "calc(100vw - 40px)" }}
+      >
+        {/* Simple draggable carousel */}
+        <div
+          ref={carouselRef}
+          className="pb-6 flex overflow-x-auto cursor-grab select-none scrollbar-none"
+          style={{
+            WebkitOverflowScrolling: "touch",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleMouseUp}
+          onTouchMove={handleTouchMove}
+        >
+          <div className="flex">
+            {multipliedLogos.map((client, index) => (
+              <div key={`client-${index}`} className="flex-shrink-0 mx-8">
+                <div
+                  className={cn(
+                    "glass-effect p-6 rounded-lg",
+                    "h-28 w-52 md:h-28 md:w-52",
+                    "flex items-center justify-center"
+                  )}
+                >
+                  <ClientLogo client={client} />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        {/* Gradient overlays */}
+        <div className="absolute top-0 left-0 h-full w-16 bg-gradient-to-r from-black to-transparent pointer-events-none" />
+        <div className="absolute top-0 right-0 h-full w-16 bg-gradient-to-l from-black to-transparent pointer-events-none" />
       </div>
-
-      {/* Balanced animation speed */}
-      <style jsx global>{`
-        .balanced-track {
-          display: flex;
-          /* 120s gives a good balance between visibility and infrequent jumps */
-          animation: scroll 120s linear infinite;
-        }
-
-        /* Speed adjustments for different devices */
-        @media (max-width: 768px) {
-          .balanced-track {
-            animation: scroll 100s linear infinite;
-          }
-        }
-      `}</style>
     </section>
   );
 };
 
-export default BalancedClientsSlider;
+export default SimpleDraggableCarousel;

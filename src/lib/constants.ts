@@ -99,7 +99,7 @@ export const kols = [
     image: '/Image/Team/Santiago.jpg',
     followers: '2.1M',
     platform: 'YouTube',
-    specialty: 'Business Development',
+    specialty: 'Head of Marketing ',
   },
     {
     id: 'Rodrigo',
