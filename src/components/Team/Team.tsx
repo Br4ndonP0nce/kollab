@@ -1,64 +1,50 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { kols } from "@/lib/constants";
 import Image from "next/image";
 import { Linkedin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-const TeamSection = () => {
+
+interface TeamMember {
+  id: string;
+  name: string;
+  specialty: string;
+  image: string;
+}
+
+const TeamSection: React.FC = () => {
   const { t } = useLanguage();
-  const containerRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const [showLeftGradient, setShowLeftGradient] = useState<boolean>(false);
+  const [showRightGradient, setShowRightGradient] = useState<boolean>(true);
 
-  // Constants for the carousel
+  // Constants for the team section
   const ITEM_WIDTH = 280; // Width of each KOL card
-  const ITEM_GAP = 16; // Gap between items (equivalent to mx-4)
-  const ITEM_TOTAL_WIDTH = ITEM_WIDTH + ITEM_GAP; // Total width including gap
-
-  // Triple the KOLs array for infinite scrolling effect
-  const tripleKols = [...kols, ...kols, ...kols];
 
   useEffect(() => {
     if (!scrollerRef.current) return;
 
-    const totalOriginalWidth = kols.length * ITEM_TOTAL_WIDTH;
     const scrollerElement = scrollerRef.current;
+    scrollerElement.style.scrollBehavior = "smooth";
 
-    // Callback to check scroll position and "loop" back if needed
+    // Track scroll position to update gradients
     const handleScroll = () => {
       if (!scrollerElement) return;
 
       const scrollPos = scrollerElement.scrollLeft;
+      const maxScroll =
+        scrollerElement.scrollWidth - scrollerElement.clientWidth;
 
-      // If we've scrolled to the end of the first set, jump to the second set (invisible jump)
-      if (scrollPos < 10) {
-        // Disable smooth scrolling temporarily
-        scrollerElement.style.scrollBehavior = "auto";
-        scrollerElement.scrollLeft = totalOriginalWidth + scrollPos;
-        // Re-enable smooth scrolling
-        setTimeout(() => {
-          scrollerElement.style.scrollBehavior = "smooth";
-        }, 10);
-      }
-      // If we've scrolled to the beginning of the third set, jump to the second set
-      else if (scrollPos >= totalOriginalWidth * 2 - 10) {
-        scrollerElement.style.scrollBehavior = "auto";
-        scrollerElement.scrollLeft = scrollPos - totalOriginalWidth;
-        setTimeout(() => {
-          scrollerElement.style.scrollBehavior = "smooth";
-        }, 10);
-      }
+      // Show/hide left gradient based on scroll position
+      setShowLeftGradient(scrollPos > 10);
+
+      // Show/hide right gradient based on scroll position
+      setShowRightGradient(scrollPos < maxScroll - 10);
     };
 
-    // Initialize position to the middle set for better UX
-    scrollerElement.scrollLeft = totalOriginalWidth;
-    scrollerElement.style.scrollBehavior = "smooth";
-
-    // Add event listeners
-    scrollerElement.addEventListener("scroll", handleScroll);
-
-    // Enable mouse drag scrolling
+    // Enable mouse drag scrolling with improved handling
     let isDown = false;
     let startX: number;
     let scrollLeft: number;
@@ -69,6 +55,10 @@ const TeamSection = () => {
       startX = e.pageX - scrollerElement.offsetLeft;
       scrollLeft = scrollerElement.scrollLeft;
       scrollerElement.style.scrollBehavior = "auto";
+
+      // Prevent text selection during drag
+      e.preventDefault();
+      document.getSelection()?.removeAllRanges();
     };
 
     const handleMouseLeave = () => {
@@ -91,6 +81,11 @@ const TeamSection = () => {
       scrollerElement.scrollLeft = scrollLeft - walk;
     };
 
+    // Initialize scroll indicators
+    handleScroll();
+
+    // Add event listeners
+    scrollerElement.addEventListener("scroll", handleScroll);
     scrollerElement.addEventListener("mousedown", handleMouseDown);
     scrollerElement.addEventListener("mouseleave", handleMouseLeave);
     scrollerElement.addEventListener("mouseup", handleMouseUp);
@@ -107,17 +102,13 @@ const TeamSection = () => {
   }, []);
 
   return (
-    <section
-      id="core-team"
-      ref={containerRef}
-      className="py-24 bg-black relative overflow-hidden"
-    >
+    <section id="core-team" className="py-24 bg-black relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black/95" />
 
       {/* Background pattern with parallax effect */}
       <motion.div
-        className="absolute inset-0  bg-repeat opacity-5"
+        className="absolute inset-0 bg-repeat opacity-5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.05 }}
         transition={{ duration: 1 }}
@@ -158,39 +149,40 @@ const TeamSection = () => {
             </motion.div>
           </div>
 
-          {/* Improved horizontal scrollable section */}
+          {/* Bounded horizontal scrollable section */}
           <div
             className="relative overflow-hidden mx-auto"
             style={{ maxWidth: "calc(100vw - 40px)" }}
           >
             <div
               ref={scrollerRef}
-              className="relative pb-6 flex cursor-grab overflow-x-auto scrollbar-none touch-pan-x"
+              className="relative pb-6 flex cursor-grab overflow-x-auto scrollbar-none touch-pan-x select-none"
               style={{
                 WebkitOverflowScrolling: "touch",
                 scrollbarWidth: "none",
                 msOverflowStyle: "none",
                 width: "100%",
+                userSelect: "none",
               }}
+              onDragStart={(e) => e.preventDefault()}
             >
-              {/* Triple the items for true infinite scrolling */}
               <div className="flex gap-4">
-                {tripleKols.map((kol, index) => (
+                {kols.map((kol: TeamMember) => (
                   <motion.div
-                    key={`${kol.id}-${index}`}
+                    key={kol.id}
                     className="flex-shrink-0 w-[280px] mx-2 overflow-hidden"
                     whileHover={{ scale: 1.02, y: -5 }}
                     transition={{ duration: 0.3 }}
                   >
                     <div className="relative group">
                       {/* Team Member Image */}
-                      <div className="relative h-[420px] w-[280px] overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
-                        <div className="absolute inset-0 z-10  bg-black/40" />
-                        <div></div>
+                      <div className="relative h-[420px] w-[280px] overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 pointer-events-none">
+                        <div className="absolute inset-0 z-10 bg-black/40" />
                         <Image
                           src={kol.image}
                           alt={kol.name}
                           fill
+                          draggable="false"
                           className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                         />
 
@@ -213,9 +205,13 @@ const TeamSection = () => {
               </div>
             </div>
 
-            {/* Gradient overlays for scroll indication */}
-            <div className="absolute top-0 left-0 h-full w-12 bg-gradient-to-r from-black to-transparent pointer-events-none" />
-            <div className="absolute top-0 right-0 h-full w-12 bg-gradient-to-l from-black to-transparent pointer-events-none" />
+            {/* Gradient overlays for scroll indication - now with conditional rendering */}
+            {showLeftGradient && (
+              <div className="absolute top-0 left-0 h-full w-12 bg-gradient-to-r from-black to-transparent pointer-events-none" />
+            )}
+            {showRightGradient && (
+              <div className="absolute top-0 right-0 h-full w-12 bg-gradient-to-l from-black to-transparent pointer-events-none" />
+            )}
           </div>
         </div>
       </div>

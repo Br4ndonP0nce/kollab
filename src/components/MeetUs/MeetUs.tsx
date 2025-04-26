@@ -303,6 +303,9 @@ const UpdatedMeetUsSection = () => {
                 </motion.div>
               ))}
             </div>
+            <p className="mt-2 text-sm text-white/60 text-center">
+              Click to expand and enable audio
+            </p>
           </div>
 
           {/* Public Events - Carousel */}

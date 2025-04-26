@@ -85,21 +85,13 @@ export const kols = [
     platform: 'Twitter',
     specialty: 'Strategic Advisor',
   },
-  {
-    id: 'Lisbeth',
-    name: 'Lisbeth',
-    image: '/Image/Team/Lisbeth.jpg',
+    {
+    id: 'Juan',
+    name: 'Juan',
+    image: '/Image/Team/Juan.jpg',
     followers: '1.5M',
     platform: 'Instagram',
-    specialty: 'Content Shooter',
-  },
-  {
-    id: 'Rodrigo',
-    name: 'Rodrigo',
-    image: '/Image/Team/Rodrigo.jpg',
-    followers: '2.1M',
-    platform: 'YouTube',
-    specialty: 'Business Development',
+    specialty: 'Head of Growth',
   },
    {
     id: 'Santiago',
@@ -109,6 +101,24 @@ export const kols = [
     platform: 'YouTube',
     specialty: 'Business Development',
   },
+    {
+    id: 'Rodrigo',
+    name: 'Rodrigo',
+    image: '/Image/Team/Rodrigo.jpg',
+    followers: '2.1M',
+    platform: 'YouTube',
+    specialty: 'Business Development',
+  },
+  {
+    id: 'Lisbeth',
+    name: 'Lisbeth',
+    image: '/Image/Team/Lisbeth.jpg',
+    followers: '1.5M',
+    platform: 'Instagram',
+    specialty: 'Content Shooter',
+  },
+
+  
   {
     id: 'Diego',
     name: 'Diego',
