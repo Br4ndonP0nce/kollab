@@ -32,7 +32,7 @@ const galleryCategories: GalleryCategory[] = [
         id: "side-events",
         title: "Side Events",
         image: "/api/placeholder/600/400",
-        video: "/Video/sideEvent.mp4", // Add your video path here
+        video: "/Video/Sideevent.webm", // Add your video path here
         description:
           "We organize exclusive side events at major blockchain conferences.",
       },
@@ -56,7 +56,7 @@ const galleryCategories: GalleryCategory[] = [
       {
         id: "consensus",
         title: "Consensus by Coindesk",
-        image: "/Image/consensus.webp",
+        image: "/Image/consensus1.png",
         description:
           "Annual gathering of the cryptocurrency and blockchain technology world.",
       },
