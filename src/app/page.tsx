@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import HeroSection from "@/components/Hero/Hero";
-import ClientsSlider from "@/components/Clients/Clients";
+import BalancedClientsSlider from "@/components/Clients/Clients";
 import HardDataSection from "@/components/HardData/HardData";
 import SolutionSection from "@/components/Solution/Solution";
 import ImprovedKolsSection from "@/components/Kol/Kols";
@@ -45,7 +45,7 @@ export default function Home() {
       >
         <JsonLd data={organizationData} />
         <HeroSection />
-        <ClientsSlider />
+        <BalancedClientsSlider />
         <MeetUsSection />
 
         <StackedHardDataSection />
