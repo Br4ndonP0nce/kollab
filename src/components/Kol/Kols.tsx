@@ -147,18 +147,19 @@ const ImprovedKolsSection = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
           >
-            <div className="relative inline-block">
-              <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/40 rounded-full blur-md"></div>
+            <div className="relative inline-block group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-amber-300/50 via-yellow-500/50 to-amber-300/50 rounded-full blur-md group-hover:animate-pulse-fast"></div>
               <a
                 href="#contact"
                 className={cn(
-                  "relative bg-white text-black",
+                  "relative bg-gradient-to-r from-amber-300 via-yellow-500 to-amber-300 text-black",
                   "px-8 py-4 rounded-full font-medium",
-                  "hover:bg-white/90 transition-colors",
-                  "inline-block kanit-text"
+                  "hover:shadow-[0_0_20px_rgba(251,191,36,0.6)] transition-all duration-300",
+                  "inline-block kanit-text border border-amber-300/50 overflow-hidden"
                 )}
               >
                 {t("kolCTA")}
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-amber-300/0 via-yellow-100/80 to-amber-300/0 -mx-4 animate-shine"></span>
               </a>
             </div>
           </motion.div>

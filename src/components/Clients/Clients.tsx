@@ -9,15 +9,15 @@ import { useLanguage } from "@/context/LanguageContext";
 const clientLogos = [
   { name: "bullx", logo: "/Image/bullx.png" },
   { name: "lemoncash", logo: "/Image/lemon.svg" },
-  { name: "altura", logo: "/Image/altura.png" },
-  { name: "qfnetwork", logo: "/Image/qfnetwork.svg" },
+  { name: "altura", logo: "/Image/altura1.png" },
+  { name: "qfnetwork", logo: "/Image/ofnetworkWhite.png" },
   { name: "tars", logo: "/Image/tars.svg" },
   { name: "cess", logo: "/Image/cess.png" },
   { name: "ondo", logo: "/Image/ondo.svg" },
-  { name: "botify", logo: "/Image/botify.jpg" },
+  { name: "botify", logo: "/Image/botify.png" },
   { name: "bullx", logo: "/Image/bullx.png" },
   { name: "lemoncash", logo: "/Image/lemon.svg" },
-  { name: "altura", logo: "/Image/altura.png" },
+  { name: "altura", logo: "/Image/altura1.png" },
 ];
 
 // Component to handle both Image and SVG rendering

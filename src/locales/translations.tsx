@@ -134,15 +134,15 @@ The campaign's momentum continued, helping Lemon Cash grow to over 400,000 activ
   es: {
     slogan1: "Conecta. Amplifica.",
     slogan2: " Domina",
-    heroIntro: "Donde el cripto y la influencia se unen",
-    heroIntro2: "voces reales, resultados reales",
+    heroIntro: "Where crypto meets influence",
+    heroIntro2: "real voices real results",
     workWithUs: "Trabaja con nosotros",
-    caseStudies: "Casos de Estudio",
+    caseStudies: "Casos de Exito",
     kols: "KOLs en nuestra red",
     views: "Vistas promedio mensuales",
 
     //Clients section
-    clientsTitle: "Projectos Lider que confian en nosotros",
+    clientsTitle: "Projectos Lideres que confian en nosotros",
 
     //MeetUs section
 
@@ -151,11 +151,11 @@ The campaign's momentum continued, helping Lemon Cash grow to over 400,000 activ
     lo que es más, organizar, hablar y conectar con la gente.`,
 
     //Hard Data section
-    hardDataHeader: "CRECIMIENTO VERIFICADO",
+    hardDataHeader: "CRECIMIENTO COMPROBADO",
     hardDataTitle: "RESULTADOS QUE ",
-    hardDataTitle2: "HABLAN VOLUMENES",
-    hardDataDescription: `Nuestras estrategias no solo prometen crecimiento,
-        entregan resultados tangibles que transforman proyectos.`,
+    hardDataTitle2: "IMPACTAN",
+    hardDataDescription: `No vendemos promesas. Ejecutamos estrategias que generan resultados reales y hacen que los proyectos despeguen.
+`,
     dataParagraph:
       "Las campañas de KOL crearon un impulso sin precedentes y un interés en el mercado. Vimos un impacto inmediato en todos nuestros métricas de crecimiento.",
 

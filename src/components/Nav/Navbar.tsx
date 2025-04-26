@@ -82,7 +82,7 @@ const ClassicNavbar = () => {
         >
           {/* Logo */}
           <Link href="/" className="py-4">
-            <span className="text-2xl font-bold text-white kanit-text">
+            <span className="text-4xl font-bold text-white kanit-text">
               KOLLABS
             </span>
           </Link>
@@ -110,7 +110,6 @@ const ClassicNavbar = () => {
             >
               {t("navContact")}
             </Link>
-            <LanguageSelector />
           </div>
 
           {/* Mobile Menu Button */}
@@ -187,9 +186,7 @@ const ClassicNavbar = () => {
                     duration: 0.3,
                   },
                 }}
-              >
-                <LanguageSelector />
-              </motion.li>
+              ></motion.li>
             </ul>
           </motion.div>
         )}

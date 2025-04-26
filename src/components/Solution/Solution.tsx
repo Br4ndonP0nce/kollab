@@ -63,10 +63,14 @@ const SolutionSection = () => {
       id="services"
       className="py-16 pb-0 bg-black relative overflow-hidden"
     >
-      {/* Background elements */}
+      {/* Animated background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
 
-      {/* Animated background pattern */}
+      {/* Dynamic glow effects */}
+      <div className="absolute top-1/4 -right-20 w-80 h-80 rounded-full bg-white/5 blur-[100px] animate-pulse-slow"></div>
+      <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full bg-white/5 blur-[120px] animate-pulse-slow animation-delay-1000"></div>
+
+      {/* Animated grid background */}
       <motion.div
         className="absolute inset-0 grid-background opacity-5"
         style={{ y, opacity }}
@@ -74,55 +78,99 @@ const SolutionSection = () => {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div ref={ref} className="max-w-6xl mx-auto">
-          {/* Section header */}
+          {/* Section header with animated text */}
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold text-white/60 uppercase tracking-wider kanit-text">
+            <motion.span
+              className="text-sm font-semibold text-white/60 uppercase tracking-wider kanit-text inline-block"
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               {t("miniTitle")}
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 kanit-text  text-white/90">
+            </motion.span>
+
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold mt-2 mb-4 kanit-text text-white/90 relative shimmer-title"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
               Kollabs
-            </h2>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
+              <span className="absolute -inset-1 bg-gradient-radial from-white/10 to-transparent blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-700"></span>
+            </motion.h2>
+
+            <motion.p
+              className="text-xl text-white/80 max-w-3xl mx-auto"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               {t("solutionDescription")}
-            </p>
+            </motion.p>
           </div>
 
-          {/* Features grid */}
+          {/* Features grid with staggered animation */}
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
           >
             {featureData.map((feature, index) => (
               <motion.div
                 key={index}
                 custom={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{
                   opacity: 1,
                   y: 0,
                   transition: {
-                    delay: 0.1 * index,
-                    duration: 0.6,
-                    ease: [0.22, 1, 0.36, 1],
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15,
+                    delay: index * 0.1,
                   },
                 }}
+                whileHover={{
+                  y: -10,
+                  boxShadow: "0 20px 30px -10px rgba(255,255,255,0.1)",
+                  transition: { type: "spring", stiffness: 400, damping: 15 },
+                }}
                 viewport={{ once: true }}
-                className="glass-effect rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 hover-lift"
+                className="glass-effect rounded-2xl p-8 border border-white/10 transition-all duration-300 group card-glow"
               >
-                <div className="p-3 bg-white/10 rounded-xl inline-flex mb-6 text-white">
+                {/* Icon with shimmer effect */}
+                <div className="p-3 bg-gradient-to-br from-white/20 to-white/5 rounded-xl inline-flex mb-6 text-white relative icon-shine overflow-hidden">
                   {feature.icon}
+                  <div className="absolute inset-0 bg-gradient-radial from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pulse-animation"></div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 kanit-text  text-white/90">
+
+                {/* Title with gradient effect on hover */}
+                <h3 className="text-xl font-bold mb-3 kanit-text text-white/90 group-hover:text-gradient-gold transition-all duration-500">
                   {t(feature.titleKey)}
                 </h3>
-                <p className="text-white/70">{t(feature.descriptionKey)}</p>
+
+                {/* Description with fade-in effect */}
+                <p className="text-white/70 group-hover:text-white/90 transition-colors duration-500">
+                  {t(feature.descriptionKey)}
+                </p>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Call to action */}
+          {/* Call to action with glow effect */}
           <motion.div
             className="mt-16 pb-16 text-center"
             initial={{ opacity: 0, y: 20 }}

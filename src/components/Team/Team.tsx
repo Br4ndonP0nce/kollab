@@ -185,6 +185,8 @@ const TeamSection = () => {
                     <div className="relative group">
                       {/* Team Member Image */}
                       <div className="relative h-[420px] w-[280px] overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
+                        <div className="absolute inset-0 z-10  bg-black/40" />
+                        <div></div>
                         <Image
                           src={kol.image}
                           alt={kol.name}
@@ -195,20 +197,13 @@ const TeamSection = () => {
                         {/* Gradient overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
 
-                        {/* LinkedIn icon in top-left corner */}
-                        <div className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center text-white">
-                          <Linkedin size={20} />
-                        </div>
-
                         {/* Team member info */}
                         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                           <h3 className="text-2xl font-bold mb-1">
                             {kol.name.toUpperCase()}
                           </h3>
                           <div className="flex flex-col space-y-1 text-sm text-white/80">
-                            <span className="uppercase">
-                              {kol.specialty} SPECIALIST
-                            </span>
+                            <span className="uppercase">{kol.specialty}</span>
                           </div>
                         </div>
                       </div>

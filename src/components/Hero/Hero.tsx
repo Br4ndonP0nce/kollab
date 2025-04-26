@@ -39,9 +39,9 @@ const HeroSection = () => {
     >
       {/* Image Background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 z-10" />
+        <div className="absolute inset-0 z-10  bg-black/80" />
         <Image
-          src="/Image/main-bg.jpg"
+          src="/Image/mainbg.jpg"
           alt="Background"
           fill
           className="object-cover"
@@ -57,14 +57,14 @@ const HeroSection = () => {
           animate="visible"
         >
           <motion.div variants={itemVariants} className="mb-6 inline-block">
-            <span className="px-4 py-1.5 font-bold text-5xl text-white/90 kanit-text">
+            <span className="px-4 py-1.5 font-bold text-7xl text-white/90 kanit-text">
               KOLLABS
             </span>
           </motion.div>
 
           <motion.h1
             variants={itemVariants}
-            className="text-5xl md:text-4xl font-bold tracking-tight mb-6 kanit-text text-balance text-white/80"
+            className="text-4xl md:text-5xl font-bold tracking-tight mb-6 kanit-text text-balance text-white/80"
           >
             {t("heroIntro")} <br />
             <span className="text-white font-semibold">{t("heroIntro2")}</span>

@@ -6,6 +6,7 @@ import Navbar from "@/components/Nav/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { defaultMetadata } from "@/lib/seo";
+import BackgroundLayout from "@/components/Backgroun";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

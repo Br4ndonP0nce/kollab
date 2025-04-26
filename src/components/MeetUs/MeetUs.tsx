@@ -3,11 +3,28 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { X } from "lucide-react";
+import { X, Volume2, VolumeX } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
-// Updated gallery images with categories
-const galleryCategories = [
+// Define proper types for gallery items
+interface BaseGalleryItem {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+}
+
+interface VideoGalleryItem extends BaseGalleryItem {
+  video: string;
+}
+
+interface GalleryCategory {
+  category: string;
+  items: (BaseGalleryItem | VideoGalleryItem)[];
+}
+
+// Updated gallery categories with video
+const galleryCategories: GalleryCategory[] = [
   {
     category: "SIDE EVENTS",
     items: [
@@ -15,6 +32,7 @@ const galleryCategories = [
         id: "side-events",
         title: "Side Events",
         image: "/api/placeholder/600/400",
+        video: "/Video/sideEvent.mp4", // Add your video path here
         description:
           "We organize exclusive side events at major blockchain conferences.",
       },
@@ -26,32 +44,32 @@ const galleryCategories = [
       {
         id: "token2049-dubai",
         title: "Token 2049 Dubai",
-        image: "/api/placeholder/600/400",
+        image: "/Image/token2049.webp",
         description: "One of the largest crypto events in the Middle East.",
       },
       {
         id: "token2049-singapore",
         title: "Token 2049 Singapore",
-        image: "/api/placeholder/600/400",
+        image: "/Image/singapore2049.webp",
         description: "The flagship crypto event in the Asia-Pacific region.",
       },
       {
         id: "consensus",
         title: "Consensus by Coindesk",
-        image: "/api/placeholder/600/400",
+        image: "/Image/consensus.webp",
         description:
           "Annual gathering of the cryptocurrency and blockchain technology world.",
       },
       {
         id: "paris-blockchain",
         title: "Paris Blockchain Week",
-        image: "/api/placeholder/600/400",
+        image: "/Image/paris.webp",
         description: "Europe's largest blockchain conference.",
       },
       {
         id: "solana-breakpoint",
         title: "Solana Breakpoint",
-        image: "/api/placeholder/600/400",
+        image: "/Image/solana.webp",
         description: "Annual conference for the Solana ecosystem.",
       },
     ],
@@ -64,6 +82,9 @@ const UpdatedMeetUsSection = () => {
     categoryIndex: number;
     itemIndex: number;
   } | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const expandedVideoRef = useRef<HTMLVideoElement>(null);
 
   const scrollerRef = useRef<HTMLDivElement>(null);
 
@@ -170,6 +191,34 @@ const UpdatedMeetUsSection = () => {
     };
   }, []);
 
+  // Function to handle clicking on a video card
+  const handleVideoCardClick = (categoryIndex: number, itemIndex: number) => {
+    setSelectedImage({ categoryIndex, itemIndex });
+    setIsMuted(false); // Start with sound enabled
+    // When opening the lightbox, ensure video starts playing
+    setTimeout(() => {
+      if (expandedVideoRef.current) {
+        expandedVideoRef.current
+          .play()
+          .catch((e) => console.error("Error playing expanded video:", e));
+        expandedVideoRef.current.muted = false; // Explicitly set muted to false
+      }
+    }, 100);
+  };
+
+  // Function to handle closing the lightbox
+  const handleCloseLightbox = () => {
+    // When closing, reset to muted state for next time
+    setIsMuted(true);
+    setSelectedImage(null);
+  };
+
+  // Toggle audio
+  const toggleAudio = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsMuted(!isMuted);
+  };
+
   // Get the flat item at the given combined index (used for lightbox)
   const getItemAtCombinedIndex = (categoryIndex: number, itemIndex: number) => {
     const category = galleryCategories[categoryIndex];
@@ -180,6 +229,13 @@ const UpdatedMeetUsSection = () => {
       ...category.items,
     ];
     return tripleItems[itemIndex];
+  };
+
+  // Check if an item has a video
+  const hasVideo = (
+    item: BaseGalleryItem | VideoGalleryItem
+  ): item is VideoGalleryItem => {
+    return "video" in item;
   };
 
   return (
@@ -196,7 +252,7 @@ const UpdatedMeetUsSection = () => {
             </p>
           </div>
 
-          {/* Side Events - Single Card Display */}
+          {/* Side Events - Video Card Display */}
           <div className="mb-16">
             <h3 className="text-xl md:text-2xl font-bold mb-6 kanit-text text-white/90">
               {galleryCategories[0].category}
@@ -206,27 +262,44 @@ const UpdatedMeetUsSection = () => {
               {galleryCategories[0].items.map((item, index) => (
                 <motion.div
                   key={`side-${item.id}`}
-                  className="w-full max-w-xl overflow-hidden rounded-xl glass-effect"
+                  className="w-full max-w-xl overflow-hidden rounded-xl glass-effect cursor-pointer"
                   layoutId={`gallery-0-${item.id}-0`}
-                  onClick={() =>
-                    setSelectedImage({ categoryIndex: 0, itemIndex: 0 })
-                  }
+                  onClick={() => handleVideoCardClick(0, 0)}
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
                   <div className="relative h-[300px] w-full">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                    />
+                    {/* Background video (no audio) */}
+                    {hasVideo(item) ? (
+                      <video
+                        ref={videoRef}
+                        className="w-full h-full object-cover"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      >
+                        <source src={item.video} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                       <h3 className="text-2xl font-bold kanit-text text-white/90">
                         {item.title}
                       </h3>
                       <p className="mt-2 text-white/80">{item.description}</p>
+                      {hasVideo(item) && (
+                        <p className="mt-2 text-sm text-white/60">
+                          Click to expand and enable audio
+                        </p>
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -311,10 +384,10 @@ const UpdatedMeetUsSection = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  onClick={() => setSelectedImage(null)}
+                  onClick={handleCloseLightbox}
                 />
 
-                {/* Expanded image */}
+                {/* Expanded content */}
                 <motion.div
                   className="fixed inset-0 z-50 flex items-center justify-center p-4"
                   initial={{ opacity: 0 }}
@@ -332,22 +405,37 @@ const UpdatedMeetUsSection = () => {
                       className="relative max-w-4xl w-full bg-black overflow-hidden rounded-xl shadow-2xl"
                     >
                       <div className="relative aspect-video">
-                        <Image
-                          src={
-                            getItemAtCombinedIndex(
-                              selectedImage.categoryIndex,
-                              selectedImage.itemIndex
-                            ).image
-                          }
-                          alt={
-                            getItemAtCombinedIndex(
-                              selectedImage.categoryIndex,
-                              selectedImage.itemIndex
-                            ).title
-                          }
-                          fill
-                          className="object-cover"
-                        />
+                        {/* Get the current item */}
+                        {(() => {
+                          const currentItem = getItemAtCombinedIndex(
+                            selectedImage.categoryIndex,
+                            selectedImage.itemIndex
+                          );
+
+                          // Check if it has a video
+                          return hasVideo(currentItem) ? (
+                            <video
+                              ref={expandedVideoRef}
+                              className="w-full h-full object-cover"
+                              autoPlay
+                              loop
+                              playsInline
+                              muted={isMuted}
+                            >
+                              <source
+                                src={currentItem.video}
+                                type="video/mp4"
+                              />
+                            </video>
+                          ) : (
+                            <Image
+                              src={currentItem.image}
+                              alt={currentItem.title}
+                              fill
+                              className="object-cover"
+                            />
+                          );
+                        })()}
                       </div>
                       <div className="p-6">
                         <h3 className="text-2xl font-bold mb-2 kanit-text text-white/90">
@@ -368,12 +456,36 @@ const UpdatedMeetUsSection = () => {
                         </p>
                       </div>
 
+                      {/* Audio control button - only for videos */}
+                      {(() => {
+                        const currentItem = getItemAtCombinedIndex(
+                          selectedImage.categoryIndex,
+                          selectedImage.itemIndex
+                        );
+
+                        if (hasVideo(currentItem)) {
+                          return (
+                            <button
+                              className="absolute top-4 left-4 bg-black/50 rounded-full p-2 text-white/90 hover:bg-black/70 transition-colors"
+                              onClick={toggleAudio}
+                            >
+                              {isMuted ? (
+                                <VolumeX size={24} />
+                              ) : (
+                                <Volume2 size={24} />
+                              )}
+                            </button>
+                          );
+                        }
+                        return null;
+                      })()}
+
                       {/* Close button */}
                       <button
                         className="absolute top-4 right-4 bg-black/50 rounded-full p-2 text-white/90 hover:bg-black/70 transition-colors"
                         onClick={(e) => {
                           e.stopPropagation();
-                          setSelectedImage(null);
+                          handleCloseLightbox();
                         }}
                       >
                         <X size={24} />
