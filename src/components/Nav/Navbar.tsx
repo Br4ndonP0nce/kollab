@@ -110,6 +110,7 @@ const ClassicNavbar = () => {
             >
               {t("navContact")}
             </Link>
+            {/*<LanguageSelector />*/}
           </div>
 
           {/* Mobile Menu Button */}

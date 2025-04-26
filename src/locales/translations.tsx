@@ -135,7 +135,138 @@ The campaign's momentum continued, helping Lemon Cash grow to over 400,000 activ
   },
 
   es: {
-    slogan1: "Conecta. Amplifica.",
+    //Hero Section
+    slogan1: "Connect. Amplify. ",
+    slogan2: " Dominate.",
+    heroIntro: "Where crypto ",
+    meets: "meets ",
+    influence: "influence",
+    heroIntro2: " real voices real results",
+    workWithUs: "Work With Us",
+    caseStudies: "Case Studies",
+    kols: "KOLs in our Network",
+    views: "Average Monthly Views",
+
+    //Clients section
+    clientsTitle: "Trusted by Leading Projects",
+
+    //MeetUs section
+    meetUsTitle: "Meet With Us in Person",
+    meetUsDescription: `We love to attend events, 
+    Whats more is we also love all the ins and outs of events: 
+      organizing speaking and connecting with people.`,
+
+    //Hard Data section
+    hardDataHeader: "VERIFIED GROWTH",
+    hardDataTitle: "RESULTS THAT ",
+    hardDataTitle2: "SPEAK ",
+    hardDataTitle3: "VOLUMES",
+    hardDataDescription: `Our strategies don't just promise growth — 
+        they deliver tangible, market-moving outcomes that transform projects.`,
+    dataParagraph:
+      "The KOL campaigns created unprecedented momentum and market interest. We saw immediate impact across all our growth metrics.",
+
+    //SolutionSection
+    miniTitle: "OUR APPROACH",
+    solutionTitle: "Kollabs",
+    solutionDescription: `We combine strategic expertise, data analytics, and an exclusive 
+    network of influential creators to deliver measurable growth for your project.`,
+    //Block One
+    extensiveNetwork: "Extensive Network",
+    blockOneDescription:
+      "Access to 400 vetted KOLs and influencers across major platforms with genuine engaged audiences.",
+    //Block Two
+    blockTwoTitle: "Data-Driven Approach",
+    blockTwoDescription:
+      "Performance analytics and metrics to optimize campaigns and maximize ROI through strategic insights.",
+    //Block Three
+    blockThreeTitle: "Growth Strategy",
+    blockThreeDescription:
+      "Tailored marketing solutions designed to boost visibility, engagement, and market capitalization.",
+    //Block Four
+    blockFourTitle: "Industry Expertise",
+    blockFourDescription:
+      "Specialized knowledge in blockchain, crypto, and Web3 to effectively position your project.",
+    //Block Five
+    blockFiveTitle: "Performance Tracking",
+    blockFiveDescription:
+      "Real-time campaign monitoring with comprehensive reporting on key performance indicators.",
+    //Block Six
+    blockSixTitle: "Community Building",
+    blockSixDescription:
+      "Strategies to foster loyal communities around your project for sustainable long-term growth.",
+    solutionButton: "Elevate Your Project with Kollabs",
+    solutionFooter:
+      "Our unique methodologies have consistently delivered exceptional results across various market conditions. Experience the Kollabs difference.",
+
+    //KOL Section
+    kolTitle: "OUR NETWORK",
+    kolDescription: `We partner with top-tier content creators across —Twitter, YouTube, TikTok, Instagram, Private Discord & Telegram groups.`,
+
+    //Team section
+    teamTitle: "MEET THE TEAM",
+    teamDescription: `Our experienced team of industry experts brings years of knowledge in Web3 marketing, community building, and growth strategies.`,
+
+    //Contact section
+    contactMiniTitle: "GET IN TOUCH",
+    contactTitle: "Ready to Elevate Your Project?",
+    contactDescription: `Contact us today to discuss how our network of KOLs and influencers can drive exceptional growth for your project.`,
+    modalTitle: "Connect with Us",
+    Follow: "Follow Us",
+    formTitle: "Send us a message",
+    formName: "Name",
+    formEmail: "Email",
+    formMessage: "Tell us about your project and goals",
+    formProject: "Project Name",
+    formButton: "Send Message",
+    formMessageTitle: "Message",
+
+    //solutionSection
+    botify: `Kollabs stepped in as Botify’s strategic growth partner, handpicking and onboarding key KOLs for their campaign.
+
+Through targeted exposure, Botify’s market cap surged from $18M to $61M — a 338% increase`,
+    altura:
+      "Altura partnered with our team to execute a hyper-targeted Tier 1 KOL campaign. We strategically selected 6 premium influencers with highly engaged communities in the NFT and gaming sectors. The coordinated content rollout drove incredible momentum, resulting in a 126% price increase in just 10 days and 2.6M views across platforms.",
+    lemoncash: `Kollabs stepped in as Lemon Cash's strategic advisor for their regional expansion. We handpicked and onboarded regional KOLs to target specific demographics and communities. 
+
+Through this systematic approach, we were able to drive 150,000 new users in just two weeks.
+
+The campaign's momentum continued, helping Lemon Cash grow to over 400,000 active users in the region.
+
+
+`,
+    solutionSectionButton: "GET SIMILAR RESULTS",
+    botifyBriefing: "COMPREHENSIVE KOL CAMPAIGN",
+    alturaBriefing: "COMPREHENSIVE KOL CAMPAIGN",
+    lemoncashBriefing: "REGIONAL EXPANSION CAMPAIGN",
+
+    // Footer Section
+    footerTagline:
+      "Connecting projects with influential KOLs to drive authentic growth and real market impact.",
+    footerQuickLinks: "Quick Links",
+    footerServices: "Services",
+    footerContactUs: "Contact Us",
+    footerLocation: "Dubai, UAE",
+    footerCopyright: "Kollabs. All rights reserved.",
+    footerPrivacy: "Privacy Policy",
+    footerTerms: "Terms of Service",
+
+    // Navigation Links
+    navHome: "Home",
+    navOurStory: "Our Story",
+    navCreators: "Creators",
+    navServices: "Services",
+    navContact: "Contact Us",
+
+    // Service Links
+    serviceKOL: "KOL Marketing",
+    serviceCommunity: "Community Building",
+    serviceGrowth: "Growth Strategy",
+    serviceAnalytics: "Campaign Analytics",
+    kolCTA: "Unlock our KOL Network",
+  },
+};
+/* slogan1: "Conecta. Amplifica.",
     slogan2: " Domina",
     heroIntro: "Where crypto meets influence",
     heroIntro2: "real voices real results",
@@ -249,6 +380,4 @@ The campaign's momentum continued, helping Lemon Cash grow to over 400,000 activ
     serviceCommunity: "COMMUNITY BUILDING",
     serviceGrowth: "Estrategia de Crecimiento",
     serviceAnalytics: "Análisis de Campañas",
-    kolCTA: "Desbloquea nuestra red de KOLs",
-  },
-};
+    kolCTA: "Desbloquea nuestra red de KOLs",*/
