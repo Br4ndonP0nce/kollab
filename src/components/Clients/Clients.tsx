@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/LanguageContext";
@@ -27,7 +27,7 @@ const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 5,
-    slidesToSlide: 1, // Number of slides to slide at once
+    slidesToSlide: 1,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -71,11 +71,34 @@ const ClientLogo = ({ client }: { client: { name: string; logo: string } }) => {
   );
 };
 
-const ClientsCarousel = () => {
+const ClientsMultiCarousel: React.FC = () => {
   const { t } = useLanguage();
+  const carouselRef = useRef<any>(null);
 
-  // Triple the logos array for smoother infinite scrolling
+  // Create a larger array for smoother infinite scrolling
+  // This ensures we have enough items when the carousel is on a wide screen
   const extendedLogos = [...clientLogos, ...clientLogos, ...clientLogos];
+
+  // Custom styling for the arrows if needed
+  const CustomRightArrow = ({ onClick }: { onClick?: () => void }) => (
+    <button
+      onClick={onClick}
+      className="absolute right-0 bg-black/50 p-2 rounded-full text-white z-10 opacity-0"
+      aria-label="Next"
+    >
+      <span className="sr-only">Next</span>
+    </button>
+  );
+
+  const CustomLeftArrow = ({ onClick }: { onClick?: () => void }) => (
+    <button
+      onClick={onClick}
+      className="absolute left-0 bg-black/50 p-2 rounded-full text-white z-10 opacity-0"
+      aria-label="Previous"
+    >
+      <span className="sr-only">Previous</span>
+    </button>
+  );
 
   return (
     <section className="py-16 bg-black relative overflow-hidden">
@@ -89,23 +112,28 @@ const ClientsCarousel = () => {
         className="relative mx-auto"
         style={{ maxWidth: "calc(100vw - 40px)" }}
       >
+        {/* react-multi-carousel implementation */}
         <div className="relative">
           <Carousel
+            ref={carouselRef}
             additionalTransfrom={0}
             arrows={false}
             autoPlay
-            autoPlaySpeed={1}
+            autoPlaySpeed={2000}
             centerMode={false}
             className="pb-6"
             containerClass="carousel-container"
-            customTransition="all 5s linear"
+            customLeftArrow={<CustomLeftArrow />}
+            customRightArrow={<CustomRightArrow />}
+            dotListClass=""
             draggable
             focusOnSelect={false}
             infinite
-            itemClass="carousel-item px-2"
+            itemClass="carousel-item px-4"
             keyBoardControl
             minimumTouchDrag={80}
             pauseOnHover
+            renderArrowsWhenDisabled={false}
             renderButtonGroupOutside={false}
             renderDotsOutside={false}
             responsive={responsive}
@@ -117,14 +145,13 @@ const ClientsCarousel = () => {
             sliderClass=""
             slidesToSlide={1}
             swipeable
-            transitionDuration={1000}
           >
             {extendedLogos.map((client, index) => (
-              <div key={`client-${index}`}>
+              <div key={`client-${index}`} className="px-2">
                 <div
                   className={cn(
                     "glass-effect p-6 rounded-lg",
-                    "h-28",
+                    "h-28 w-full",
                     "flex items-center justify-center mx-auto"
                   )}
                 >
@@ -170,4 +197,4 @@ const ClientsCarousel = () => {
   );
 };
 
-export default ClientsCarousel;
+export default ClientsMultiCarousel;
