@@ -113,9 +113,9 @@ const campaignData = [
       },
       {
         label: "PRICE INCREASE",
-        value: 300,
+        value: 3.3,
         prefix: "",
-        suffix: "%",
+        suffix: "x",
         icon: <TrendingUp className="h-5 w-5 text-white" />,
         color: "bg-white/10",
       },
