@@ -36,7 +36,7 @@ export const caseStudies = [
     description: 'Comprehensive KOL campaign',
     metrics: [
       { label: 'KOLs Onboarded', value: 20 },
-      { label: 'Price Increase', value: '300%' },
+      { label: 'Price Increase', value: '3.3x' },
       { label: 'MarketCap Growth', value: 'From $18M to $61M' },
       { label: 'Total Views', value: '1.2M' },
     ],
